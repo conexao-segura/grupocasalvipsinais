@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FP - SINAIS SLOTS - PP GAMES (Cópia de Layout)</title>
+    <title>FP - SINAIS SLOTS - PP GAMES (Completo)</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         /* Estilos globais e de corpo */
         :root {
             --bg-dark: #1a1a1a;
             --primary-purple: #490195;
+            --secondary-purple: #7a02f0;
             --text-light: #f5f5f5;
             --text-gold: #ffcb51;
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            --dark-card-bg: #222222; /* Fundo dos cartões em geral */
-            --green-text: #00ff00; /* Cor de texto das porcentagens altas */
-            --red-text: #ff0000; /* Cor de texto das porcentagens baixas */
+            --dark-card-bg: #222222;
+            --green-text: #00ff00;
+            --red-text: #ff0000;
         }
 
         * {
@@ -28,7 +29,7 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            padding-top: 100px; /* Espaço para a navbar fixa */
+            padding-top: 60px; /* Menor espaço para a navbar fixa */
         }
 
         .container {
@@ -37,7 +38,7 @@
             padding: 0 15px;
         }
 
-        /* Navbar (Copiado do modelo anterior) */
+        /* --- 1. Navbar --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -47,48 +48,182 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--nav-shadow);
             z-index: 100;
+            padding: 5px 0;
         }
 
         .navbar-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 10px;
+            gap: 5px; /* Menor gap para caber tudo */
+            flex-wrap: wrap; /* Permite quebras em telas menores */
+            padding: 5px 0;
         }
 
         .nav-link {
             text-decoration: none;
-            padding: 8px 15px;
+            padding: 6px 10px;
             border-radius: 5px;
             font-weight: 700;
+            font-size: 0.8em;
             color: var(--text-light);
             background-color: #333;
-            border: 2px solid var(--primary-purple);
+            border: 1px solid var(--primary-purple);
             transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap; /* Impede quebras de linha nos botões */
         }
 
         .btn-action {
             background-color: #1a1a1a;
-            border: 2px solid var(--primary-purple);
+            border: 1px solid var(--primary-purple);
             color: var(--text-gold);
             font-weight: 800;
             text-transform: uppercase;
         }
 
-        /* Layout de Cartões */
+        /* --- 2. Banner Principal --- */
+        .main-banner {
+            background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .banner-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .banner-car {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/800x400/330066/FFFFFF?text=LAMBORGHINI+ROXA');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .banner-logo {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--text-light);
+            text-shadow: 0 0 10px var(--secondary-purple);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .pragmatic-play-text {
+            font-size: 4em;
+            font-weight: 800;
+            color: white;
+            position: relative;
+            z-index: 5;
+        }
+
+        .download-links {
+            margin-top: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .download-link {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: black;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        /* --- Tabs de Filtro (Botões) --- */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 15px 0; /* Espaço ajustado */
+        }
+
+        .tab-button {
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 3px solid var(--primary-purple);
+            background: linear-gradient(to left, #1b191a, #000000, #1b191a);
+            color: var(--text-light);
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(to left, #490195, #7a02f0, #490195);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px black;
+        }
+
+        /* --- 3. Barra de Pesquisa --- */
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 570px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 20px 10px 45px; /* Padding ajustado para a lupa */
+            border: 4px solid var(--primary-purple);
+            border-radius: 8px;
+            background: linear-gradient(to left, #c7c9ce, #cfd2da, #e2e4e8);
+            color: #1a1a1a;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1a1a1a;
+            font-size: 1.2em;
+        }
+        
+        /* Estilos dos Cartões (Mantidos e Simplificados) */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Mais cartões por linha */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
             gap: 15px;
             padding-bottom: 50px;
         }
 
-        /* O cartão agora é um link. Resetamos o estilo de texto do link. */
         .game-card-link {
             text-decoration: none;
             color: inherit;
@@ -108,7 +243,6 @@
             transform: scale(1.02);
         }
 
-        /* Estilo do Topo do Cartão (Simulando a Imagem de Fundo) */
         .card-top {
             height: 120px;
             position: relative;
@@ -118,7 +252,6 @@
             background-position: center;
         }
 
-        /* Overlay de Informação no Topo */
         .card-overlay {
             position: absolute;
             bottom: 0;
@@ -130,7 +263,6 @@
             font-weight: 700;
         }
         
-        /* Botão de Coração (Favorito) no Topo */
         .favorite-btn {
             position: absolute;
             top: 5px;
@@ -141,7 +273,6 @@
             text-shadow: 0 0 5px black;
         }
 
-        /* Corpo do Cartão */
         .card-body {
             padding: 10px;
         }
@@ -162,7 +293,7 @@
             vertical-align: middle;
             margin-right: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            background-color: #555; /* Cor de fundo padrão */
+            background-color: #555;
         }
         
         .game-info {
@@ -180,15 +311,6 @@
             border-radius: 3px;
         }
 
-        .low-percentage {
-            color: var(--red-text);
-        }
-
-        .high-percentage {
-            color: var(--green-text);
-        }
-        
-        /* Barra de Progresso customizada (cor do cartão) */
         .progress-bar {
             height: 5px;
             border-radius: 5px;
@@ -202,7 +324,6 @@
             transition: width 0.5s ease-out;
         }
 
-        /* Range de Aposta */
         .bet-range {
             padding-top: 10px;
             font-size: 0.75em;
@@ -213,8 +334,6 @@
             margin-top: 10px;
         }
 
-        /* Botão JOGUE AGORA */
-        /* O estilo continua, mas o elemento HTML agora é injetado como um <span> em vez de um <a> para evitar links aninhados e usamos a tag <a> ao redor de tudo. */
         .btn-jogue-agora-span {
             display: block;
             text-align: center;
@@ -229,64 +348,83 @@
         .btn-jogue-agora-span:hover {
             opacity: 0.9;
         }
-
-        /* Cores dos Cards (simulando o fundo) */
-        .bg-red { background-color: #990000; }
-        .bg-yellow { background-color: #cc9900; }
-        .bg-purple { background-color: #6a0dad; }
-        .bg-green { background-color: #008000; }
-        .bg-dark-purple { background-color: #3b006a; }
-        .bg-orange { background-color: #cc6600; }
-        .bg-pink { background-color: #c71585; }
-        .bg-blue { background-color: #00008b; }
-        .bg-brown { background-color: #8b4513; }
-        .bg-dark-green { background-color: #013220; }
-
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="container navbar-content">
             <div class="nav-buttons">
-                <a href="#" class="nav-link">JOGOS PG</a>
-                <a href="#" class="nav-link">JOGOS PP</a>
-                <a href="#" class="nav-link">GERAR SINAIS</a>
-                <a href="#" class="nav-link btn-action">JOGUE AGORA</a>
-                </div>
+                <a href="#" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
+                <a href="#" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="#" class="nav-link"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
+                <a href="#" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
+                <a href="#" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
+                <a href="#" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
+                <a href="#" class="nav-link btn-action">BAIXAR APP</a>
+            </div>
         </div>
     </nav>
 
+    <header class="main-banner">
+        <div class="banner-car"></div>
+        <div class="banner-content">
+            <div style="position: relative; z-index: 5;">
+                <span class="banner-logo">FP <i class="fas fa-crown" style="color: var(--text-gold);"></i> GRUPO</span>
+                <p class="pragmatic-play-text">PRAGMATIC PLAY</p>
+                <p style="color: white; margin-top: -10px; font-weight: 700;">www.grupofpsinais.com.br</p>
+
+                <div class="download-links">
+                    <p style="font-size: 0.9em; margin-bottom: 5px;">Faça o Download do nosso Aplicativo via:</p>
+                    <a href="#" class="download-link"><i class="fab fa-google-play"></i> Google Play</a>
+                    <a href="#" class="download-link"><i class="fab fa-apple"></i> App Store</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <main class="container">
-        <h1 style="text-align: center; margin-top: 30px; color: var(--text-gold);">SINAIS PG GAMES</h1>
         
-        <section id="game-list-section" style="margin-top: 30px;">
+        <section class="filter-tabs">
+            <button class="tab-button"><i class="fas fa-fire" style="color: orange;"></i> HOT</button>
+            <button class="tab-button"><i class="fas fa-star" style="color: yellow;"></i> NEW</button>
+            <button class="tab-button active"> <i class="fas fa-list"></i> ALL</button>
+            <button class="tab-button"><i class="fas fa-heart" style="color: red;"></i> FAV</button>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquise seu jogo aqui...">
+            </div>
+        </section>
+
+        <section id="game-list-section">
             <div id="cards-container" class="cards-grid">
                 </div>
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" style="background-color: #111; padding: 20px 0;">
         <div class="container">
-            <h1>DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <h1 style="color: var(--green-text);">DEFENSORES DO JOGO RESPONSÁVEL</h1>
             <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
         </div>
     </footer>
 
     <script>
-        // Use este link como base. Você pode alterá-lo quando quiser.
+        // Link de destino para todos os cartões
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         const gamesData = [
-            // Imagem 1
+            // Dados dos 33 jogos (MANTIDOS do código anterior)
             { nome: "Treasure Wild", distribuicao: 79, minima: 78, padrao: 25, maxima: 73, cor: "bg-orange" },
             { nome: "Starlight Princess", distribuicao: 61, minima: 58, padrao: 49, maxima: 13, cor: "bg-yellow" },
             { nome: "Buffalo King Untamed Megaways", distribuicao: 63, minima: 60, padrao: 56, maxima: 27, cor: "bg-purple" },
             { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green" },
             { nome: "Mustang Gold Megaways", distribuicao: 98, minima: 98, padrao: 72, maxima: 21, cor: "bg-dark-green" },
             { nome: "Tigre Sortudo", distribuicao: 77, minima: 12, padrao: 76, maxima: 67, cor: "bg-red" },
-            
-            // Imagem 4/5 (Unificada)
             { nome: "Book of Tut", distribuicao: 81, minima: 78, padrao: 74, maxima: 70, cor: "bg-orange" },
             { nome: "Egyptian Fortunes", distribuicao: 77, minima: 52, padrao: 18, maxima: 76, cor: "bg-red" },
             { nome: "Gates of Olympus", distribuicao: 71, minima: 37, padrao: 15, maxima: 68, cor: "bg-purple" },
@@ -295,8 +433,6 @@
             { nome: "Eye of Cleopatra", distribuicao: 43, minima: 40, padrao: 42, maxima: 14, cor: "bg-purple" },
             { nome: "Wolf Gold", distribuicao: 61, minima: 60, padrao: 26, maxima: 13, cor: "bg-dark-purple" },
             { nome: "Gold Party", distribuicao: 82, minima: 30, padrao: 81, maxima: 67, cor: "bg-green" },
-
-            // Imagem 2
             { nome: "Bounty Gold", distribuicao: 98, minima: 97, padrao: 86, maxima: 18, cor: "bg-dark-purple" },
             { nome: "Book of Fallen", distribuicao: 42, minima: 41, padrao: 39, maxima: 23, cor: "bg-red" },
             { nome: "Santa's Wonderland", distribuicao: 80, minima: 77, padrao: 42, maxima: 60, cor: "bg-pink" },
@@ -305,8 +441,6 @@
             { nome: "Mystic Chief", distribuicao: 71, minima: 31, padrao: 70, maxima: 23, cor: "bg-dark-purple" },
             { nome: "Day of Dead", distribuicao: 86, minima: 76, padrao: 81, maxima: 85, cor: "bg-red" },
             { nome: "Piggy Bank Bills", distribuicao: 46, minima: 30, padrao: 43, maxima: 12, cor: "bg-dark-green" },
-
-            // Imagem 3
             { nome: "Great Rhino", distribuicao: 52, minima: 37, padrao: 51, maxima: 10, cor: "bg-brown" },
             { nome: "Spirit of Adventure", distribuicao: 56, minima: 28, padrao: 55, maxima: 35, cor: "bg-brown" },
             { nome: "Christmas Big Bass Bonanza", distribuicao: 52, minima: 51, padrao: 32, maxima: 26, cor: "bg-purple" },
@@ -315,8 +449,6 @@
             { nome: "Madame Destiny", distribuicao: 96, minima: 48, padrao: 98, maxima: 42, cor: "bg-purple" },
             { nome: "Drill That Gold", distribuicao: 96, minima: 41, padrao: 61, maxima: 93, cor: "bg-dark-purple" },
             { nome: "Chicken Chase", distribuicao: 92, minima: 89, padrao: 82, maxima: 78, cor: "bg-red" },
-
-            // Imagem 6
             { nome: "Queenie", distribuicao: 77, minima: 11, padrao: 76, maxima: 57, cor: "bg-pink" },
             { nome: "The Ultimate 5", distribuicao: 88, minima: 73, padrao: 30, maxima: 85, cor: "bg-dark-purple" },
             { nome: "Rock Vegas", distribuicao: 59, minima: 29, padrao: 17, maxima: 56, cor: "bg-dark-green" },
@@ -336,30 +468,17 @@
         }
         
         function getLinkColor(className) {
-            // Mapeia a cor do cartão para a cor do botão 'Jogue Agora'
             switch(className) {
-                case 'bg-green':
-                case 'bg-dark-green':
-                    return '#008000'; // Verde
-                case 'bg-red':
-                    return '#990000'; // Vermelho
-                case 'bg-purple':
-                case 'bg-dark-purple':
-                case 'bg-blue':
-                case 'bg-pink':
-                    return '#6a0dad'; // Roxo/Azul
-                case 'bg-yellow':
-                case 'bg-orange':
-                case 'bg-brown':
-                    return '#cc6600'; // Laranja/Marrom
-                default:
-                    return '#490195'; 
+                case 'bg-green': case 'bg-dark-green': return '#008000';
+                case 'bg-red': return '#990000';
+                case 'bg-purple': case 'bg-dark-purple': case 'bg-blue': case 'bg-pink': return '#6a0dad';
+                case 'bg-yellow': case 'bg-orange': case 'bg-brown': return '#cc6600';
+                default: return '#490195'; 
             }
         }
 
         function createGameCard(game) {
             
-            // O link é sempre o padrão para todos os cartões.
             const cardLink = DEFAULT_GAME_LINK;
 
             const betRangeHTML = `
@@ -372,14 +491,12 @@
             
             const linkColor = getLinkColor(game.cor);
             
-            // Verifica se o cartão tem o botão "JOGUE AGORA" no lugar do range de apostas.
             const hasPlayNowButton = ["Hand of Midas 2", "Mustang Gold Megaways", "Madame Destiny", "Drill That Gold", "Bounty Gold", "John Hunter and the Tomb of the Scarab Queen", "Star Pirates Code", "Mystic Chief", "Super X"].includes(game.nome);
 
             const buttonOrRangeHTML = hasPlayNowButton ? 
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
                                       betRangeHTML;
 
-            // Se a distribuição for 90% ou mais, adiciona o badge
             const badgeHTML = game.distribuicao >= 90 ? `<span style="color: ${getPercentageColor(90)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+90%</span>` : '';
 
 
@@ -388,7 +505,7 @@
                     <div class="game-card">
                         <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
                             ${badgeHTML}
-                            <span class="favorite-btn">❤️</span>
+                            <i class="fas fa-heart favorite-btn"></i>
                             <div class="card-overlay">
                                 Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
                             </div>
@@ -435,7 +552,6 @@
             cardsContainer.innerHTML = data.map(createGameCard).join('');
         }
 
-        // Simular carregamento e renderizar
         setTimeout(() => {
             renderGames(gamesData);
         }, 500);
