@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP - GERADOR DE SINAIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [INSERIR AQUI APENAS O CSS BÁSICO DO SEU index.html] */
+        :root {
+            --bg-dark: #1a1a1a;
+            --primary-purple: #490195;
+            --text-light: #f5f5f5;
+            --text-gold: #ffcb51;
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding-top: 60px; 
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* NavBar (Cópia simplificada) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-dark);
+            box-shadow: var(--nav-shadow);
+            z-index: 100;
+            padding: 5px 0;
+        }
+        .nav-buttons { display: flex; justify-content: center; gap: 5px; padding: 5px 0; }
+        .nav-link { text-decoration: none; padding: 6px 10px; border-radius: 5px; font-weight: 700; font-size: 0.8em; color: var(--text-light); background-color: #333; border: 1px solid var(--primary-purple); }
+        .btn-action { background-color: #1a1a1a; border: 1px solid var(--primary-purple); color: var(--text-gold); font-weight: 800; text-transform: uppercase; }
+
+        /* Estilos do Gerador */
+        .generator-box {
+            background-color: #222;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 50px auto;
+            border: 3px solid var(--primary-purple);
+        }
+
+        .signal-result {
+            background-color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: var(--text-gold);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .select-game, .btn-generate {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+        }
+        
+        .select-game {
+            background-color: #333;
+            color: var(--text-light);
+        }
+
+        .btn-generate {
+            background-color: #008000;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-generate:hover {
+            background-color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="nav-buttons">
+                <a href="pg-games.html" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
+                <a href="index.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="gerar-sinais.html" class="nav-link active"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
+                <a href="#" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
+                <a href="wg-games.html" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
+                <a href="tada-games.html" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
+                <a href="#" class="nav-link btn-action">BAIXAR APP</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 style="color: var(--text-gold); margin-top: 30px;">🔥 GERADOR DE SINAIS FP 🔥</h1>
+        
+        <div class="generator-box">
+            <h2>Selecione o Jogo</h2>
+            <select id="game-selector" class="select-game">
+                <option value="">-- Selecione um Jogo --</option>
+                <option value="Fortune Tiger">Fortune Tiger (PG)</option>
+                <option value="Gates of Olympus">Gates of Olympus (PP)</option>
+                <option value="Wolf Gold">Wolf Gold (PP)</option>
+                </select>
+            
+            <button class="btn-generate" onclick="generateSignal()">GERAR SINAL AGORA</button>
+            
+            <div id="signal-output" class="signal-result">
+                Aguardando a geração do sinal...
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function generateSignal() {
+            const output = document.getElementById('signal-output');
+            const game = document.getElementById('game-selector').value;
+            
+            if (!game) {
+                output.innerHTML = "⚠️ Por favor, selecione um jogo para gerar o sinal.";
+                output.style.color = "yellow";
+                return;
+            }
+
+            output.style.color = "white";
+            output.innerHTML = `<i class="fas fa-cog fa-spin"></i> Gerando sinal para ${game}...`;
+
+            // Simulação de tempo de espera
+            setTimeout(() => {
+                const signals = [
+                    "ENTRADA: 2x R$2,00 (PADRÃO)",
+                    "ESTRATÉGIA: 10x Turbo, depois 2x Max. ",
+                    "SINAL FORTE: Rodar 5x Manual Mínima.",
+                    "SINAL DE SAÍDA: 3x R$5,00 + BÔNUS"
+                ];
+                const randomSignal = signals[Math.floor(Math.random() * signals.length)];
+                
+                output.style.color = "var(--text-gold)";
+                output.innerHTML = `✅ SINAL PARA ${game}: ${randomSignal}`;
+            }, 2000); // Espera 2 segundos
+        }
+    </script>
+</body>
+</html>
