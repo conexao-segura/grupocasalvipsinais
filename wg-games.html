@@ -86,7 +86,7 @@
             text-transform: uppercase;
         }
 
-        /* --- Banner Principal (Customizado) --- */
+        /* --- Banner Principal (Customizado para WG) --- */
         .main-banner {
             background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
             background-size: cover;
@@ -133,7 +133,7 @@
         .wg-games-text {
             font-size: 4em;
             font-weight: 800;
-            color: white; /* Cor customizada para WG */
+            color: var(--green-text); /* Cor customizada para WG (Verde) */
             position: relative;
             z-index: 5;
         }
@@ -363,8 +363,10 @@
         <div class="banner-car"></div>
         <div class="banner-content">
             <div style="position: relative; z-index: 5;">
-                <span class="banner-logo">FP <i class="fas fa-dice" style="color: white;"></i> GRUPO</span>
-                <p class="wg-games-text">WG GAMES</p>
+                <span class="banner-logo">FP <span style="font-size: 1em; color: var(--green-text);">GRUPO</span></span>
+                <p class="wg-games-text" style="text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);">
+                    <span style="color: var(--green-text);">W</span><span style="color: white;">G</span>
+                </p>
                 <p style="color: white; margin-top: -10px; font-weight: 700;">www.grupofpsinais.com.br</p>
 
                 <div class="download-links">
@@ -398,10 +400,13 @@
         </section>
     </main>
 
-    <footer class="footer" style="background-color: #111; padding: 20px 0;">
-        <div class="container">
-            <h1 style="color: var(--green-text);">DEFENSORES DO JOGO RESPONSÁVEL</h1>
-            <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
+    <footer class="footer" style="background-color: #000; padding: 40px 0;">
+        <div class="container" style="max-width: 900px; text-align: left;">
+            <h1 style="color: var(--green-text); font-size: 1.5em; margin-bottom: 10px;">DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <p style="font-size: 0.9em; line-height: 1.5;">Nós do Grupo FP, promovemos o jogo responsável como uma forma de entretenimento. Se o jogo deixar de ser divertido, é hora de parar. Para informações sobre sinais de problemas com jogos de azar, visite BeGambleAware. O jogo é destinado a maiores de 18 anos – é ilegal para menores.</p>
+            
+            <h1 style="color: var(--green-text); font-size: 1.5em; margin-top: 30px; margin-bottom: 10px;">AVISO LEGAL</h1>
+            <p style="font-size: 0.9em; line-height: 1.5;">O site grupofpsinais.net é uma plataforma independente dedicada a cassinos online e jogos de cassino. Fornecemos análises detalhadas e imparciais, mas recomendamos sempre verificar as regulamentações locais antes de participar de qualquer atividade de jogo.</p>
         </div>
     </footer>
 
@@ -410,13 +415,37 @@
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         const gamesData = [
-            // DADOS SIMULADOS DE JOGOS WG GAMES (Exemplo)
-            { nome: "WG Fortune Box", distribuicao: 85, minima: 70, padrao: 80, maxima: 65, cor: "bg-red" },
-            { nome: "WG King's Cash", distribuicao: 90, minima: 85, padrao: 92, maxima: 88, cor: "bg-green" },
-            { nome: "WG Magic Lamp", distribuicao: 78, minima: 60, padrao: 75, maxima: 50, cor: "bg-purple" },
-            { nome: "WG Pirate's Gold", distribuicao: 65, minima: 45, padrao: 60, maxima: 40, cor: "bg-yellow" },
-            { nome: "WG Aztec Treasure", distribuicao: 95, minima: 90, padrao: 98, maxima: 92, cor: "bg-dark-green" },
-            { nome: "WG Dragon's Fire", distribuicao: 80, minima: 75, padrao: 82, maxima: 78, cor: "bg-orange" },
+            // DADOS DOS JOGOS WG GAMES (NA ORDEM DAS SUAS IMAGENS)
+
+            // Imagem 1: Fortune Mouse até Mahjong Ways 2
+            { nome: "Fortune Mouse", distribuicao: 83, minima: 27, padrao: 80, maxima: 71, cor: "bg-red" },
+            { nome: "Fortune Tiger", distribuicao: 79, minima: 65, padrao: 49, maxima: 78, cor: "bg-orange" },
+            { nome: "Fortune Ox", distribuicao: 71, minima: 68, padrao: 57, maxima: 56, cor: "bg-purple" },
+            { nome: "Fortune Rabbit", distribuicao: 81, minima: 78, padrao: 37, maxima: 73, cor: "bg-dark-purple" },
+            { nome: "Fortune Snake", distribuicao: 93, minima: 79, padrao: 14, maxima: 92, cor: "bg-green" },
+            { nome: "Fortune Gems", distribuicao: 69, minima: 32, padrao: 60, maxima: 68, cor: "bg-yellow" },
+            { nome: "Queen of Bounty", distribuicao: 56, minima: 44, padrao: 26, maxima: 55, cor: "bg-red" },
+            { nome: "Mahjong Ways 2", distribuicao: 82, minima: 79, padrao: 59, maxima: 13, cor: "bg-purple" },
+
+            // Imagem 2: Festival of the Saints até Super Ace
+            { nome: "Festival of the Saints", distribuicao: 76, minima: 73, padrao: 56, maxima: 32, cor: "bg-dark-green" },
+            { nome: "Animal Kingdom", distribuicao: 98, minima: 95, padrao: 66, maxima: 77, cor: "bg-green" },
+            { nome: "Fishing Master", distribuicao: 98, minima: 78, padrao: 98, maxima: 18, cor: "bg-blue" },
+            { nome: "Dragon's Treasure 2", distribuicao: 70, minima: 69, padrao: 39, maxima: 24, cor: "bg-red" },
+            { nome: "Mahjong Ways", distribuicao: 72, minima: 30, padrao: 52, maxima: 71, cor: "bg-purple" },
+            { nome: "Super Fruits Slot 2", distribuicao: 62, minima: 50, padrao: 61, maxima: 26, cor: "bg-yellow" },
+            { nome: "Wild Bounty Showdown", distribuicao: 67, minima: 66, padrao: 47, maxima: 63, cor: "bg-dark-purple" },
+            { nome: "Super Ace", distribuicao: 32, minima: 19, padrao: 10, maxima: 31, cor: "bg-pink" },
+            
+            // Imagem 3: Festa dos Doces até Treasure Marmosets
+            { nome: "Festa dos Doces", distribuicao: 94, minima: 25, padrao: 93, maxima: 78, cor: "bg-dark-green" },
+            { nome: "Super Máquina de Frutas", distribuicao: 98, minima: 92, padrao: 95, maxima: 57, cor: "bg-red" },
+            { nome: "Margem da Água", distribuicao: 82, minima: 81, padrao: 17, maxima: 36, cor: "bg-dark-purple" },
+            { nome: "Caça ao Tesouro em Série", distribuicao: 98, minima: 98, padrao: 47, maxima: 59, cor: "bg-green" },
+            { nome: "Mais Fortuna e Riqueza", distribuicao: 74, minima: 73, padrao: 32, maxima: 73, cor: "bg-yellow" },
+            { nome: "Dragon's Treasure", distribuicao: 98, minima: 98, padrao: 98, maxima: 35, cor: "bg-blue" },
+            { nome: "World Cup", distribuicao: 51, minima: 37, padrao: 50, maxima: 27, cor: "bg-dark-purple" },
+            { nome: "Treasure Marmosets", distribuicao: 88, minima: 87, padrao: 27, maxima: 57, cor: "bg-orange" },
         ];
 
 
@@ -453,8 +482,13 @@
             
             const linkColor = getLinkColor(game.cor);
             
-            // Nenhum botão JOGUE AGORA nos cards WG (por padrão)
-            const hasPlayNowButton = false; 
+            // Lista de jogos WG que usam o botão "JOGUE AGORA" no lugar do range (Baseado nas suas imagens)
+            const gamesWithPlayNowButton = [
+                "Fortune Snake", "Festival of the Saints", "Animal Kingdom", "Fishing Master", 
+                "Festa dos Doces", "Super Máquina de Frutas", "Caça ao Tesouro em Série", "Dragon's Treasure", "Margem da Água"
+            ];
+
+            const hasPlayNowButton = gamesWithPlayNowButton.includes(game.nome);
 
             const buttonOrRangeHTML = hasPlayNowButton ? 
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
