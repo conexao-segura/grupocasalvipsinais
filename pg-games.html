@@ -39,7 +39,7 @@
             padding: 0 15px;
         }
 
-        /* --- Navbar --- (Mesma de index.html) */
+        /* --- Navbar --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -88,7 +88,8 @@
 
         /* --- Banner Principal (Customizado para PG) --- */
         .main-banner {
-            background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
+            /* Simula o fundo da cidade roxa */
+            background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade'); 
             background-size: cover;
             background-position: center;
             padding: 40px 0;
@@ -114,7 +115,8 @@
             transform: translate(-50%, -50%);
             width: 80%;
             height: 100%;
-            background-image: url('https://via.placeholder.com/800x400/330066/FFFFFF?text=LAMBORGHINI+ROXA');
+            /* Simula a imagem do carro roxo */
+            background-image: url('https://via.placeholder.com/800x400/330066/FFFFFF?text=LAMBORGHINI+ROXA'); 
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -217,7 +219,7 @@
             font-size: 1.2em;
         }
         
-        /* Estilos dos Cartões (Mantidos) */
+        /* Estilos dos Cartões */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
@@ -531,7 +533,8 @@
             const gamesWithPlayNowButton = [
                 "Prosperity Fortune Tree", "Lucky Piggy", "Mahjong Ways 2", "Cocktail Nights", "Geisha's Revenge", "Mafia Mayhem", 
                 "Dragon Hatch 2", "Werewolf's Hunt", "Wild Ape", "Songkran Splash", "Ganesha Fortune", "Piggy Gold", 
-                "Circus Delight", "Captain's Bounty", "Phoenix Rises", "Midas Fortune", "Emperor's Favour", "Butterfly Blossom"
+                "Circus Delight", "Captain's Bounty", "Phoenix Rises", "Midas Fortune", "Emperor's Favour", "Butterfly Blossom", 
+                "Graffiti Rush", "Mr. Treasure's Fortune" // Adicionei os últimos da primeira imagem
             ];
 
             const hasPlayNowButton = gamesWithPlayNowButton.includes(game.nome);
