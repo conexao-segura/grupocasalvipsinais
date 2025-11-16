@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP - SINAIS SLOTS - PG GAMES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [INSERIR AQUI TODO O BLOCO DE CSS DO SEU index.html] */
+        :root {
+            --bg-dark: #1a1a1a;
+            --primary-purple: #490195;
+            --secondary-purple: #7a02f0;
+            --text-light: #f5f5f5;
+            --text-gold: #ffcb51;
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --dark-card-bg: #222222;
+            --green-text: #00ff00;
+            --red-text: #ff0000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding-top: 60px; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--nav-shadow);
+            z-index: 100;
+            padding: 5px 0;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            padding: 5px 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.8em;
+            color: var(--text-light);
+            background-color: #333;
+            border: 1px solid var(--primary-purple);
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-action {
+            background-color: #1a1a1a;
+            border: 1px solid var(--primary-purple);
+            color: var(--text-gold);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .main-banner {
+            background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .banner-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .banner-car {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/800x400/330066/FFFFFF?text=LAMBORGHINI+ROXA');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .banner-logo {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--text-light);
+            text-shadow: 0 0 10px var(--secondary-purple);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .pragmatic-play-text {
+            font-size: 4em;
+            font-weight: 800;
+            color: white;
+            position: relative;
+            z-index: 5;
+        }
+
+        .download-links {
+            margin-top: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .download-link {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: black;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 15px 0;
+        }
+
+        .tab-button {
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 3px solid var(--primary-purple);
+            background: linear-gradient(to left, #1b191a, #000000, #1b191a);
+            color: var(--text-light);
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(to left, #490195, #7a02f0, #490195);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px black;
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 570px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 20px 10px 45px;
+            border: 4px solid var(--primary-purple);
+            border-radius: 8px;
+            background: linear-gradient(to left, #c7c9ce, #cfd2da, #e2e4e8);
+            color: #1a1a1a;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1a1a1a;
+            font-size: 1.2em;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 15px;
+            padding-bottom: 50px;
+        }
+
+        .game-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .game-card {
+            background-color: var(--dark-card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            position: relative;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-top {
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--text-light);
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-shadow: 0 0 5px black;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .game-name {
+            font-size: 1em;
+            font-weight: 800;
+            margin-bottom: 5px;
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        .game-icon-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            background-color: #555;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        .percentage-value {
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .progress-bar {
+            height: 5px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 2px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease-out;
+        }
+
+        .bet-range {
+            padding-top: 10px;
+            font-size: 0.75em;
+            line-height: 1.3;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+
+        .btn-jogue-agora-span {
+            display: block;
+            text-align: center;
+            padding: 10px 0;
+            color: white;
+            font-weight: 800;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-jogue-agora-span:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="nav-buttons">
+                <a href="pg-games.html" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
+                <a href="index.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="gerar-sinais.html" class="nav-link"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
+                <a href="#" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
+                <a href="wg-games.html" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
+                <a href="tada-games.html" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
+                <a href="#" class="nav-link btn-action">BAIXAR APP</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="main-banner">
+        <div class="banner-car"></div>
+        <div class="banner-content">
+            <div style="position: relative; z-index: 5;">
+                <span class="banner-logo">FP <i class="fas fa-gem" style="color: yellow;"></i> GRUPO</span>
+                <p class="pragmatic-play-text">PG GAMES</p>
+                <p style="color: white; margin-top: -10px; font-weight: 700;">www.grupofpsinais.com.br</p>
+
+                <div class="download-links">
+                    <p style="font-size: 0.9em; margin-bottom: 5px;">Faça o Download do nosso Aplicativo via:</p>
+                    <a href="#" class="download-link"><i class="fab fa-google-play"></i> Google Play</a>
+                    <a href="#" class="download-link"><i class="fab fa-apple"></i> App Store</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="filter-tabs">
+            <button class="tab-button active"><i class="fas fa-fire" style="color: orange;"></i> HOT</button>
+            <button class="tab-button"><i class="fas fa-star" style="color: yellow;"></i> NEW</button>
+            <button class="tab-button"> <i class="fas fa-list"></i> ALL</button>
+            <button class="tab-button"><i class="fas fa-heart" style="color: red;"></i> FAV</button>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquise seu jogo aqui...">
+            </div>
+        </section>
+
+        <section id="game-list-section">
+            <div id="cards-container" class="cards-grid">
+                </div>
+        </section>
+    </main>
+
+    <footer class="footer" style="background-color: #111; padding: 20px 0;">
+        <div class="container">
+            <h1 style="color: var(--green-text);">DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
+        </div>
+    </footer>
+
+    <script>
+        const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
+        
+        // Exemplo de jogos que seriam da PG Games
+        const gamesData = [
+            { nome: "Fortune Tiger", distribuicao: 99, minima: 95, padrao: 98, maxima: 96, cor: "bg-yellow" },
+            { nome: "Fortune Mouse", distribuicao: 90, minima: 88, padrao: 85, maxima: 92, cor: "bg-green" },
+            { nome: "Fortune Rabbit", distribuicao: 85, minima: 70, padrao: 80, maxima: 65, cor: "bg-orange" },
+            { nome: "The Great Icescape", distribuicao: 78, minima: 65, padrao: 75, maxima: 50, cor: "bg-blue" },
+        ];
+
+        // RESTANTE DO CÓDIGO JAVASCRIPT (FUNÇÕES DE RENDERIZAÇÃO)
+        const cardsContainer = document.getElementById('cards-container');
+
+        function getPercentageColor(percentage) {
+            if (percentage >= 70) return 'var(--green-text)';
+            if (percentage >= 40) return 'var(--text-gold)';
+            return 'var(--red-text)';
+        }
+        
+        function getLinkColor(className) {
+            switch(className) {
+                case 'bg-green': case 'bg-dark-green': return '#008000';
+                case 'bg-red': return '#990000';
+                case 'bg-purple': case 'bg-dark-purple': case 'bg-blue': case 'bg-pink': return '#6a0dad';
+                case 'bg-yellow': case 'bg-orange': case 'bg-brown': return '#cc6600';
+                default: return '#490195'; 
+            }
+        }
+
+        function createGameCard(game) {
+            
+            const cardLink = DEFAULT_GAME_LINK;
+
+            const betRangeHTML = `
+                <div class="bet-range">
+                    Mínima R$0,50 a R$2,40<br>
+                    Padrão R$2,50 a R$8,00<br>
+                    Máxima acima de R$10,00
+                </div>
+            `;
+            
+            const linkColor = getLinkColor(game.cor);
+            
+            const hasPlayNowButton = false; // Assumindo que jogos PG não tem o botão JOGUE AGORA no corpo
+            const buttonOrRangeHTML = betRangeHTML;
+
+            const badgeHTML = game.distribuicao >= 90 ? `<span style="color: ${getPercentageColor(90)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+90%</span>` : '';
+
+
+            return `
+                <a href="${cardLink}" class="game-card-link" target="_blank">
+                    <div class="game-card">
+                        <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
+                            ${badgeHTML}
+                            <i class="fas fa-heart favorite-btn"></i>
+                            <div class="card-overlay">
+                                Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body" style="background-color: ${linkColor};">
+                            <div class="game-name">
+                                <span class="game-icon-placeholder" style="background-color: ${linkColor};"></span>
+                                ${game.nome}
+                            </div>
+                            
+                            <div class="game-info">
+                                <span>Mínima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.minima)};">${game.minima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.minima}%; background-color: ${getPercentageColor(game.minima)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Padrão:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.padrao)};">${game.padrao}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.padrao}%; background-color: ${getPercentageColor(game.padrao)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Máxima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.maxima)};">${game.maxima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.maxima}%; background-color: ${getPercentageColor(game.maxima)};"></div>
+                            </div>
+
+                            ${buttonOrRangeHTML}
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function renderGames(data) {
+            cardsContainer.innerHTML = data.map(createGameCard).join('');
+        }
+
+        setTimeout(() => {
+            renderGames(gamesData);
+        }, 500);
+    </script>
+
+</body>
+</html>
