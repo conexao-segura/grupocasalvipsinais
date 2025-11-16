@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP - SINAIS SLOTS - PP GAMES (Cópia de Layout)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos globais e de corpo */
+        :root {
+            --bg-dark: #1a1a1a;
+            --primary-purple: #490195;
+            --text-light: #f5f5f5;
+            --text-gold: #ffcb51;
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --dark-card-bg: #222222; /* Fundo dos cartões em geral */
+            --green-text: #00ff00; /* Cor de texto das porcentagens altas */
+            --red-text: #ff0000; /* Cor de texto das porcentagens baixas */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding-top: 100px; /* Espaço para a navbar fixa */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navbar (Copiado do modelo anterior) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--nav-shadow);
+            z-index: 100;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 700;
+            color: var(--text-light);
+            background-color: #333;
+            border: 2px solid var(--primary-purple);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-action {
+            background-color: #1a1a1a;
+            border: 2px solid var(--primary-purple);
+            color: var(--text-gold);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Layout de Cartões */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Mais cartões por linha */
+            gap: 15px;
+            padding-bottom: 50px;
+        }
+
+        /* O cartão agora é um link. Resetamos o estilo de texto do link. */
+        .game-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .game-card {
+            background-color: var(--dark-card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            position: relative;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Estilo do Topo do Cartão (Simulando a Imagem de Fundo) */
+        .card-top {
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Overlay de Informação no Topo */
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--text-light);
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+        
+        /* Botão de Coração (Favorito) no Topo */
+        .favorite-btn {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-shadow: 0 0 5px black;
+        }
+
+        /* Corpo do Cartão */
+        .card-body {
+            padding: 10px;
+        }
+
+        .game-name {
+            font-size: 1em;
+            font-weight: 800;
+            margin-bottom: 5px;
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        .game-icon-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            background-color: #555; /* Cor de fundo padrão */
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        .percentage-value {
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .low-percentage {
+            color: var(--red-text);
+        }
+
+        .high-percentage {
+            color: var(--green-text);
+        }
+        
+        /* Barra de Progresso customizada (cor do cartão) */
+        .progress-bar {
+            height: 5px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 2px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease-out;
+        }
+
+        /* Range de Aposta */
+        .bet-range {
+            padding-top: 10px;
+            font-size: 0.75em;
+            line-height: 1.3;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+
+        /* Botão JOGUE AGORA */
+        /* O estilo continua, mas o elemento HTML agora é injetado como um <span> em vez de um <a> para evitar links aninhados e usamos a tag <a> ao redor de tudo. */
+        .btn-jogue-agora-span {
+            display: block;
+            text-align: center;
+            padding: 10px 0;
+            color: white;
+            font-weight: 800;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-jogue-agora-span:hover {
+            opacity: 0.9;
+        }
+
+        /* Cores dos Cards (simulando o fundo) */
+        .bg-red { background-color: #990000; }
+        .bg-yellow { background-color: #cc9900; }
+        .bg-purple { background-color: #6a0dad; }
+        .bg-green { background-color: #008000; }
+        .bg-dark-purple { background-color: #3b006a; }
+        .bg-orange { background-color: #cc6600; }
+        .bg-pink { background-color: #c71585; }
+        .bg-blue { background-color: #00008b; }
+        .bg-brown { background-color: #8b4513; }
+        .bg-dark-green { background-color: #013220; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="nav-buttons">
+                <a href="#" class="nav-link">JOGOS PG</a>
+                <a href="#" class="nav-link">JOGOS PP</a>
+                <a href="#" class="nav-link">GERAR SINAIS</a>
+                <a href="#" class="nav-link btn-action">JOGUE AGORA</a>
+                </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 style="text-align: center; margin-top: 30px; color: var(--text-gold);">SINAIS PG GAMES</h1>
+        
+        <section id="game-list-section" style="margin-top: 30px;">
+            <div id="cards-container" class="cards-grid">
+                </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <h1>DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Use este link como base. Você pode alterá-lo quando quiser.
+        const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
+
+        const gamesData = [
+            // Imagem 1
+            { nome: "Treasure Wild", distribuicao: 79, minima: 78, padrao: 25, maxima: 73, cor: "bg-orange" },
+            { nome: "Starlight Princess", distribuicao: 61, minima: 58, padrao: 49, maxima: 13, cor: "bg-yellow" },
+            { nome: "Buffalo King Untamed Megaways", distribuicao: 63, minima: 60, padrao: 56, maxima: 27, cor: "bg-purple" },
+            { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green" },
+            { nome: "Mustang Gold Megaways", distribuicao: 98, minima: 98, padrao: 72, maxima: 21, cor: "bg-dark-green" },
+            { nome: "Tigre Sortudo", distribuicao: 77, minima: 12, padrao: 76, maxima: 67, cor: "bg-red" },
+            
+            // Imagem 4/5 (Unificada)
+            { nome: "Book of Tut", distribuicao: 81, minima: 78, padrao: 74, maxima: 70, cor: "bg-orange" },
+            { nome: "Egyptian Fortunes", distribuicao: 77, minima: 52, padrao: 18, maxima: 76, cor: "bg-red" },
+            { nome: "Gates of Olympus", distribuicao: 71, minima: 37, padrao: 15, maxima: 68, cor: "bg-purple" },
+            { nome: "The Dog House", distribuicao: 78, minima: 75, padrao: 10, maxima: 30, cor: "bg-green" },
+            { nome: "Rise of Giza PowerNudge", distribuicao: 69, minima: 21, padrao: 32, maxima: 68, cor: "bg-red" },
+            { nome: "Eye of Cleopatra", distribuicao: 43, minima: 40, padrao: 42, maxima: 14, cor: "bg-purple" },
+            { nome: "Wolf Gold", distribuicao: 61, minima: 60, padrao: 26, maxima: 13, cor: "bg-dark-purple" },
+            { nome: "Gold Party", distribuicao: 82, minima: 30, padrao: 81, maxima: 67, cor: "bg-green" },
+
+            // Imagem 2
+            { nome: "Bounty Gold", distribuicao: 98, minima: 97, padrao: 86, maxima: 18, cor: "bg-dark-purple" },
+            { nome: "Book of Fallen", distribuicao: 42, minima: 41, padrao: 39, maxima: 23, cor: "bg-red" },
+            { nome: "Santa's Wonderland", distribuicao: 80, minima: 77, padrao: 42, maxima: 60, cor: "bg-pink" },
+            { nome: "Big Juan", distribuicao: 61, minima: 56, padrao: 35, maxima: 58, cor: "bg-blue" },
+            { nome: "Star Pirates Code", distribuicao: 98, minima: 69, padrao: 15, maxima: 95, cor: "bg-dark-purple" },
+            { nome: "Mystic Chief", distribuicao: 71, minima: 31, padrao: 70, maxima: 23, cor: "bg-dark-purple" },
+            { nome: "Day of Dead", distribuicao: 86, minima: 76, padrao: 81, maxima: 85, cor: "bg-red" },
+            { nome: "Piggy Bank Bills", distribuicao: 46, minima: 30, padrao: 43, maxima: 12, cor: "bg-dark-green" },
+
+            // Imagem 3
+            { nome: "Great Rhino", distribuicao: 52, minima: 37, padrao: 51, maxima: 10, cor: "bg-brown" },
+            { nome: "Spirit of Adventure", distribuicao: 56, minima: 28, padrao: 55, maxima: 35, cor: "bg-brown" },
+            { nome: "Christmas Big Bass Bonanza", distribuicao: 52, minima: 51, padrao: 32, maxima: 26, cor: "bg-purple" },
+            { nome: "John Hunter and the Tomb of the Scarab Queen", distribuicao: 97, minima: 55, padrao: 68, maxima: 94, cor: "bg-yellow" },
+            { nome: "Cash Bonanza", distribuicao: 81, minima: 80, padrao: 66, maxima: 70, cor: "bg-green" },
+            { nome: "Madame Destiny", distribuicao: 96, minima: 48, padrao: 98, maxima: 42, cor: "bg-purple" },
+            { nome: "Drill That Gold", distribuicao: 96, minima: 41, padrao: 61, maxima: 93, cor: "bg-dark-purple" },
+            { nome: "Chicken Chase", distribuicao: 92, minima: 89, padrao: 82, maxima: 78, cor: "bg-red" },
+
+            // Imagem 6
+            { nome: "Queenie", distribuicao: 77, minima: 11, padrao: 76, maxima: 57, cor: "bg-pink" },
+            { nome: "The Ultimate 5", distribuicao: 88, minima: 73, padrao: 30, maxima: 85, cor: "bg-dark-purple" },
+            { nome: "Rock Vegas", distribuicao: 59, minima: 29, padrao: 17, maxima: 56, cor: "bg-dark-green" },
+            { nome: "Wild Depths", distribuicao: 83, minima: 82, padrao: 64, maxima: 16, cor: "bg-blue" },
+            { nome: "Magician's Secrets", distribuicao: 98, minima: 61, padrao: 99, maxima: 21, cor: "bg-pink" },
+            { nome: "Crystal Caverns Megaways", distribuicao: 61, minima: 36, padrao: 27, maxima: 60, cor: "bg-dark-purple" },
+            { nome: "Smugglers Cove", distribuicao: 71, minima: 70, padrao: 17, maxima: 51, cor: "bg-red" },
+            { nome: "Super X", distribuicao: 98, minima: 98, padrao: 11, maxima: 19, cor: "bg-dark-green" },
+        ];
+
+        const cardsContainer = document.getElementById('cards-container');
+
+        function getPercentageColor(percentage) {
+            if (percentage >= 70) return 'var(--green-text)';
+            if (percentage >= 40) return 'var(--text-gold)';
+            return 'var(--red-text)';
+        }
+        
+        function getLinkColor(className) {
+            // Mapeia a cor do cartão para a cor do botão 'Jogue Agora'
+            switch(className) {
+                case 'bg-green':
+                case 'bg-dark-green':
+                    return '#008000'; // Verde
+                case 'bg-red':
+                    return '#990000'; // Vermelho
+                case 'bg-purple':
+                case 'bg-dark-purple':
+                case 'bg-blue':
+                case 'bg-pink':
+                    return '#6a0dad'; // Roxo/Azul
+                case 'bg-yellow':
+                case 'bg-orange':
+                case 'bg-brown':
+                    return '#cc6600'; // Laranja/Marrom
+                default:
+                    return '#490195'; 
+            }
+        }
+
+        function createGameCard(game) {
+            
+            // O link é sempre o padrão para todos os cartões.
+            const cardLink = DEFAULT_GAME_LINK;
+
+            const betRangeHTML = `
+                <div class="bet-range">
+                    Mínima R$0,50 a R$2,40<br>
+                    Padrão R$2,50 a R$8,00<br>
+                    Máxima acima de R$10,00
+                </div>
+            `;
+            
+            const linkColor = getLinkColor(game.cor);
+            
+            // Verifica se o cartão tem o botão "JOGUE AGORA" no lugar do range de apostas.
+            const hasPlayNowButton = ["Hand of Midas 2", "Mustang Gold Megaways", "Madame Destiny", "Drill That Gold", "Bounty Gold", "John Hunter and the Tomb of the Scarab Queen", "Star Pirates Code", "Mystic Chief", "Super X"].includes(game.nome);
+
+            const buttonOrRangeHTML = hasPlayNowButton ? 
+                                      `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
+                                      betRangeHTML;
+
+            // Se a distribuição for 90% ou mais, adiciona o badge
+            const badgeHTML = game.distribuicao >= 90 ? `<span style="color: ${getPercentageColor(90)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+90%</span>` : '';
+
+
+            return `
+                <a href="${cardLink}" class="game-card-link" target="_blank">
+                    <div class="game-card">
+                        <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
+                            ${badgeHTML}
+                            <span class="favorite-btn">❤️</span>
+                            <div class="card-overlay">
+                                Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body" style="background-color: ${linkColor};">
+                            <div class="game-name">
+                                <span class="game-icon-placeholder" style="background-color: ${linkColor};"></span>
+                                ${game.nome}
+                            </div>
+                            
+                            <div class="game-info">
+                                <span>Mínima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.minima)};">${game.minima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.minima}%; background-color: ${getPercentageColor(game.minima)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Padrão:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.padrao)};">${game.padrao}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.padrao}%; background-color: ${getPercentageColor(game.padrao)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Máxima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.maxima)};">${game.maxima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.maxima}%; background-color: ${getPercentageColor(game.maxima)};"></div>
+                            </div>
+
+                            ${buttonOrRangeHTML}
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function renderGames(data) {
+            cardsContainer.innerHTML = data.map(createGameCard).join('');
+        }
+
+        // Simular carregamento e renderizar
+        setTimeout(() => {
+            renderGames(gamesData);
+        }, 500);
+    </script>
+
+</body>
+</html>
