@@ -86,7 +86,7 @@
             text-transform: uppercase;
         }
 
-        /* --- Banner Principal (Customizado) --- */
+        /* --- Banner Principal (Customizado para TADA) --- */
         .main-banner {
             background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
             background-size: cover;
@@ -398,10 +398,13 @@
         </section>
     </main>
 
-    <footer class="footer" style="background-color: #111; padding: 20px 0;">
-        <div class="container">
-            <h1 style="color: var(--green-text);">DEFENSORES DO JOGO RESPONSÁVEL</h1>
-            <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
+    <footer class="footer" style="background-color: #000; padding: 40px 0;">
+        <div class="container" style="max-width: 900px; text-align: left;">
+            <h1 style="color: var(--green-text); font-size: 1.5em; margin-bottom: 10px;">DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <p style="font-size: 0.9em; line-height: 1.5;">Nós do Grupo FP, promovemos o jogo responsável como uma forma de entretenimento. Se o jogo deixar de ser divertido, é hora de parar. Para informações sobre sinais de problemas com jogos de azar, visite BeGambleAware. O jogo é destinado a maiores de 18 anos – é ilegal para menores.</p>
+            
+            <h1 style="color: var(--green-text); font-size: 1.5em; margin-top: 30px; margin-bottom: 10px;">AVISO LEGAL</h1>
+            <p style="font-size: 0.9em; line-height: 1.5;">O site grupofpsinais.net é uma plataforma independente dedicada a cassinos online e jogos de cassino. Fornecemos análises detalhadas e imparciais, mas recomendamos sempre verificar as regulamentações locais antes de participar de qualquer atividade de jogo.</p>
         </div>
     </footer>
 
@@ -410,13 +413,122 @@
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         const gamesData = [
-            // DADOS SIMULADOS DE JOGOS TADA GAMING (Exemplo)
-            { nome: "Tada Fruit Frenzy", distribuicao: 92, minima: 85, padrao: 90, maxima: 88, cor: "bg-green" },
-            { nome: "Tada Ancient Gods", distribuicao: 75, minima: 55, padrao: 70, maxima: 60, cor: "bg-purple" },
-            { nome: "Tada Ocean Riches", distribuicao: 88, minima: 80, padrao: 85, maxima: 82, cor: "bg-blue" },
-            { nome: "Tada Space Hunter", distribuicao: 60, minima: 40, padrao: 55, maxima: 45, cor: "bg-dark-purple" },
-            { nome: "Tada Candy Crush", distribuicao: 96, minima: 95, padrao: 98, maxima: 94, cor: "bg-pink" },
-            { nome: "Tada Viking Raid", distribuicao: 70, minima: 65, padrao: 72, maxima: 68, cor: "bg-brown" },
+            // **********************************************
+            // NOVOS JOGOS (16) - ACRESCENTADOS NO INÍCIO DA LISTA
+            // **********************************************
+            // Imagem Nova 1: Lucky Doggy até Fruity Wheel
+            { nome: "Lucky Doggy", distribuicao: 71, minima: 57, padrao: 26, maxima: 68, cor: "bg-orange" },
+            { nome: "Poseidon", distribuicao: 81, minima: 29, padrao: 78, maxima: 41, cor: "bg-purple" },
+            { nome: "Shogun", distribuicao: 89, minima: 21, padrao: 88, maxima: 32, cor: "bg-red" },
+            { nome: "Safari Mystery", distribuicao: 95, minima: 92, padrao: 76, maxima: 49, cor: "bg-orange" },
+            { nome: "3 Coin Treasures", distribuicao: 97, minima: 94, padrao: 88, maxima: 83, cor: "bg-green" },
+            { nome: "Ultimate Texas Holdem", distribuicao: 40, minima: 37, padrao: 18, maxima: 22, cor: "bg-blue" },
+            { nome: "Crazy Hunter 2", distribuicao: 81, minima: 78, padrao: 64, maxima: 35, cor: "bg-yellow" },
+            { nome: "Lucky Jaguar", distribuicao: 86, minima: 65, padrao: 83, maxima: 35, cor: "bg-red" },
+            
+            // Imagem Nova 2: Fruity Wheel até Lucky Jaguar 2
+            { nome: "Fruity Wheel", distribuicao: 95, minima: 49, padrao: 45, maxima: 94, cor: "bg-orange" },
+            { nome: "Bikini Lady", distribuicao: 88, minima: 87, padrao: 14, maxima: 87, cor: "bg-green" },
+            { nome: "Rapid Gems 777", distribuicao: 87, minima: 69, padrao: 84, maxima: 53, cor: "bg-dark-purple" },
+            { nome: "Coin Infinity Surge Reel", distribuicao: 54, minima: 49, padrao: 53, maxima: 10, cor: "bg-yellow" },
+            { nome: "Pirate Queen 2", distribuicao: 62, minima: 39, padrao: 61, maxima: 58, cor: "bg-red" },
+            { nome: "Fortune Coins", distribuicao: 82, minima: 79, padrao: 16, maxima: 60, cor: "bg-orange" },
+            { nome: "10 Sparkling Crown", distribuicao: 87, minima: 48, padrao: 47, maxima: 86, cor: "bg-purple" },
+            { nome: "Lucky Jaguar 2", distribuicao: 88, minima: 87, padrao: 13, maxima: 48, cor: "bg-pink" },
+
+            // **********************************************
+            // JOGOS ANTERIORES (47) - MANTIDOS
+            // **********************************************
+            // Imagem Antiga 1: Ascent Charge até Lucky Doggy
+            { nome: "Ascent Charge", distribuicao: 75, minima: 73, padrao: 66, maxima: 34, cor: "bg-purple" },
+            { nome: "Jogo Do Bicho", distribuicao: 53, minima: 52, padrao: 47, maxima: 41, cor: "bg-yellow" },
+            { nome: "Potion Wizard", distribuicao: 82, minima: 79, padrao: 75, maxima: 63, cor: "bg-dark-purple" },
+            { nome: "Jackpot Joker", distribuicao: 93, minima: 15, padrao: 25, maxima: 90, cor: "bg-blue" },
+            { nome: "Money Coming Expanded Bets", distribuicao: 40, minima: 39, padrao: 38, maxima: 18, cor: "bg-red" },
+            { nome: "Nightfall Hunting", distribuicao: 93, minima: 92, padrao: 82, maxima: 41, cor: "bg-orange" },
+            { nome: "Nightfall Hunting 2", distribuicao: 59, minima: 56, padrao: 28, maxima: 45, cor: "bg-red" },
+            { nome: "3 Pot Dragons", distribuicao: 84, minima: 83, padrao: 82, maxima: 57, cor: "bg-orange" },
+            { nome: "Lucky Doggy 2", distribuicao: 75, minima: 60, padrao: 83, maxima: 57, cor: "bg-orange" },
+
+            // Imagem Antiga 2: Chin Shi Huang até Charge Buffalo
+            { nome: "Chin Shi Huang", distribuicao: 68, minima: 67, padrao: 42, maxima: 40, cor: "bg-red" },
+            { nome: "Fortune Tree", distribuicao: 81, minima: 80, padrao: 17, maxima: 36, cor: "bg-yellow" },
+            { nome: "Jungle King", distribuicao: 82, minima: 79, padrao: 47, maxima: 75, cor: "bg-purple" },
+            { nome: "Shanghai Beauty", distribuicao: 79, minima: 43, padrao: 78, maxima: 44, cor: "bg-orange" },
+            { nome: "Fortune Pig", distribuicao: 81, minima: 18, padrao: 62, maxima: 80, cor: "bg-pink" },
+            { nome: "Night City", distribuicao: 98, minima: 98, padrao: 65, maxima: 41, cor: "bg-dark-purple" },
+            { nome: "XiYangYang", distribuicao: 74, minima: 73, padrao: 16, maxima: 13, cor: "bg-red" },
+            { nome: "Charge Buffalo", distribuicao: 90, minima: 87, padrao: 13, maxima: 48, cor: "bg-orange" },
+
+            // Imagem Antiga 3: Wild Ace até Sweet Land
+            { nome: "Wild Ace", distribuicao: 73, minima: 44, padrao: 54, maxima: 72, cor: "bg-dark-purple" },
+            { nome: "Golden Land", distribuicao: 36, minima: 15, padrao: 29, maxima: 35, cor: "bg-brown" },
+            { nome: "Golden Joker", distribuicao: 92, minima: 18, padrao: 89, maxima: 80, cor: "bg-purple" },
+            { nome: "Golden Temple", distribuicao: 87, minima: 84, padrao: 55, maxima: 48, cor: "bg-yellow" },
+            { nome: "Devil Fire", distribuicao: 79, minima: 12, padrao: 76, maxima: 64, cor: "bg-red" },
+            { nome: "Pearls of Bingo", distribuicao: 75, minima: 72, padrao: 68, maxima: 53, cor: "bg-pink" },
+            { nome: "Color Game", distribuicao: 87, minima: 26, padrao: 72, maxima: 84, cor: "bg-blue" },
+            { nome: "Sweet Land", distribuicao: 91, minima: 72, padrao: 19, maxima: 90, cor: "bg-purple" },
+
+            // Imagem Antiga 4: Trial of Phoenix até Devil Fire 2
+            { nome: "Trial of Phoenix", distribuicao: 70, minima: 55, padrao: 34, maxima: 67, cor: "bg-red" },
+            { nome: "King Arthur", distribuicao: 77, minima: 76, padrao: 20, maxima: 38, cor: "bg-brown" },
+            { nome: "Candyland Bingo", distribuicao: 95, minima: 94, padrao: 63, maxima: 15, cor: "bg-dark-purple" },
+            { nome: "Magic Lamp Bingo", distribuicao: 96, minima: 61, padrao: 84, maxima: 96, cor: "bg-green" },
+            { nome: "Fortune Gems 2", distribuicao: 63, minima: 60, padrao: 16, maxima: 32, cor: "bg-yellow" },
+            { nome: "Party Star", distribuicao: 97, minima: 41, padrao: 96, maxima: 54, cor: "bg-pink" },
+            { nome: "Zeus", distribuicao: 98, minima: 63, padrao: 99, maxima: 94, cor: "bg-dark-purple" },
+            { nome: "Devil Fire 2", distribuicao: 97, minima: 41, padrao: 90, maxima: 97, cor: "bg-red" },
+
+            // Imagem Antiga 5: Bingo Empire até Sin City
+            { nome: "Bingo Empire", distribuicao: 53, minima: 50, padrao: 26, maxima: 23, cor: "bg-purple" },
+            { nome: "Bingo Carnaval", distribuicao: 92, minima: 62, padrao: 88, maxima: 91, cor: "bg-red" },
+            { nome: "Calaca Bingo", distribuicao: 91, minima: 90, padrao: 14, maxima: 59, cor: "bg-yellow" },
+            { nome: "Lucky Bingo", distribuicao: 65, minima: 64, padrao: 45, maxima: 31, cor: "bg-dark-purple" },
+            { nome: "Super Bingo", distribuicao: 94, minima: 91, padrao: 65, maxima: 64, cor: "bg-pink" },
+            { nome: "Pirate Queen", distribuicao: 68, minima: 67, padrao: 48, maxima: 53, cor: "bg-red" },
+            { nome: "Wild Racer", distribuicao: 85, minima: 77, padrao: 84, maxima: 15, cor: "bg-blue" },
+            { nome: "Sin City", distribuicao: 84, minima: 25, padrao: 61, maxima: 83, cor: "bg-purple" },
+
+            // Imagem Antiga 6: Thor X até World Cup
+            { nome: "Thor X", distribuicao: 74, minima: 73, padrao: 21, maxima: 67, cor: "bg-red" },
+            { nome: "Samba", distribuicao: 77, minima: 71, padrao: 19, maxima: 74, cor: "bg-green" },
+            { nome: "Gold Rush", distribuicao: 94, minima: 59, padrao: 91, maxima: 31, cor: "bg-dark-green" },
+            { nome: "Fortune Bingo", distribuicao: 98, minima: 99, padrao: 96, maxima: 33, cor: "bg-red" },
+            { nome: "Bonus Hunter", distribuicao: 67, minima: 43, padrao: 66, maxima: 10, cor: "bg-purple" },
+            { nome: "Bonus Bingo", distribuicao: 98, minima: 99, padrao: 66, maxima: 90, cor: "bg-blue" },
+            { nome: "Neko Fortune", distribuicao: 86, minima: 51, padrao: 85, maxima: 80, cor: "bg-pink" },
+            { nome: "World Cup 2", distribuicao: 69, minima: 68, padrao: 38, maxima: 63, cor: "bg-red" },
+
+            // Imagem Antiga 7: Lucky Goldbricks até Medusa
+            { nome: "Lucky Goldbricks", distribuicao: 90, minima: 79, padrao: 87, maxima: 67, cor: "bg-dark-purple" },
+            { nome: "Money Coming", distribuicao: 98, minima: 100, padrao: 68, maxima: 82, cor: "bg-green" },
+            { nome: "Golden Queen", distribuicao: 83, minima: 82, padrao: 16, maxima: 17, cor: "bg-yellow" },
+            { nome: "Party Night", distribuicao: 80, minima: 48, padrao: 79, maxima: 41, cor: "bg-pink" },
+            { nome: "Boxing King", distribuicao: 79, minima: 78, padrao: 17, maxima: 38, cor: "bg-red" },
+            { nome: "Pharaoh Treasure", distribuicao: 78, minima: 29, padrao: 65, maxima: 77, cor: "bg-brown" },
+            { nome: "Book of Gold", distribuicao: 38, minima: 35, padrao: 24, maxima: 17, cor: "bg-purple" },
+            { nome: "Medusa", distribuicao: 94, minima: 88, padrao: 10, maxima: 93, cor: "bg-dark-purple" },
+
+            // Imagem Antiga 8: Roma X até Bone Fortune (Estes já estão na nova lista, mas renumerei para evitar conflitos se fosse só adicionar)
+            // { nome: "Roma X", distribuicao: 98, minima: 88, padrao: 98, maxima: 82, cor: "bg-purple" },
+            // { nome: "Golden Empire", distribuicao: 49, minima: 47, padrao: 21, maxima: 48, cor: "bg-yellow" },
+            // { nome: "Magic Lamp", distribuicao: 69, minima: 10, padrao: 34, maxima: 68, cor: "bg-blue" },
+            // { nome: "Fortune Gems", distribuicao: 94, minima: 91, padrao: 38, maxima: 19, cor: "bg-red" },
+            // { nome: "Ali Baba", distribuicao: 91, minima: 69, padrao: 90, maxima: 46, cor: "bg-yellow" },
+            // { nome: "Agent Ace", distribuicao: 98, minima: 33, padrao: 31, maxima: 99, cor: "bg-dark-green" },
+            // { nome: "iRich Bingo", distribuicao: 93, minima: 92, padrao: 18, maxima: 35, cor: "bg-green" },
+            // { nome: "Bone Fortune", distribuicao: 93, minima: 90, padrao: 13, maxima: 66, cor: "bg-red" },
+
+            // Imagem Antiga 9: Elf Bingo até Legacy of Egypt (Estes já estão na nova lista, mas renumerei para evitar conflitos se fosse só adicionar)
+            // { nome: "Elf Bingo", distribuicao: 88, minima: 87, padrao: 34, maxima: 15, cor: "bg-green" },
+            // { nome: "West Hunter Bingo", distribuicao: 59, minima: 58, padrao: 14, maxima: 57, cor: "bg-brown" },
+            // { nome: "Jackpot Bingo", distribuicao: 79, minima: 10, padrao: 78, maxima: 26, cor: "bg-dark-purple" },
+            // { nome: "Master Tiger", distribuicao: 85, minima: 50, padrao: 84, maxima: 31, cor: "bg-yellow" },
+            // { nome: "Bingo Adventure", distribuicao: 85, minima: 10, padrao: 28, maxima: 85, cor: "bg-blue" },
+            // { nome: "Go Goal Bingo", distribuicao: 42, minima: 31, padrao: 39, maxima: 18, cor: "bg-red" },
+            // { nome: "Plinko Empire", distribuicao: 92, minima: 89, padrao: 58, maxima: 65, cor: "bg-dark-purple" },
+            // { nome: "Legacy of Egypt", distribuicao: 85, minima: 82, padrao: 74, maxima: 71, cor: "bg-purple" },
         ];
 
 
@@ -453,8 +565,16 @@
             
             const linkColor = getLinkColor(game.cor);
             
-            // Nenhum botão JOGUE AGORA nos cards TADA (por padrão)
-            const hasPlayNowButton = false; 
+            // Lista de jogos TADA que usam o botão "JOGUE AGORA" no lugar do range (Baseado nas suas imagens)
+            const gamesWithPlayNowButton = [
+                "Money Coming", "Night City", "Bingo Carnaval", "Super Bingo", "Candyland Bingo", "Magic Lamp Bingo", 
+                "Party Star", "Zeus", "Devil Fire 2", "Roma X", "Fortune Gems", "Agent Ace", "iRich Bingo", 
+                "Fortune Bingo", "Bonus Bingo", "Medusa", "Lucky Goldbricks",
+                // Novos jogos com botão JOGUE AGORA (baseado nas imagens):
+                "Safari Mystery", "3 Coin Treasures", "Fruity Wheel", "Agent Ace", "iRich Bingo", "Money Coming"
+            ];
+
+            const hasPlayNowButton = gamesWithPlayNowButton.includes(game.nome);
 
             const buttonOrRangeHTML = hasPlayNowButton ? 
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
