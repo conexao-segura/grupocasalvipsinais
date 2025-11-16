@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FP - SINAIS SLOTS - PP GAMES</title>
+    <title>FP - SINAIS SLOTS - PP GAMES (Completo)</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Estilos globais e de corpo */
         :root {
@@ -30,7 +29,7 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            padding-top: 60px; /* Espaço para a navbar fixa */
+            padding-top: 60px; /* Menor espaço para a navbar fixa */
         }
 
         .container {
@@ -39,7 +38,7 @@
             padding: 0 15px;
         }
 
-        /* --- Navbar --- */
+        /* --- 1. Navbar --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -60,8 +59,8 @@
 
         .nav-buttons {
             display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
+            gap: 5px; /* Menor gap para caber tudo */
+            flex-wrap: wrap; /* Permite quebras em telas menores */
             padding: 5px 0;
         }
 
@@ -75,7 +74,7 @@
             background-color: #333;
             border: 1px solid var(--primary-purple);
             transition: transform 0.2s, box-shadow 0.2s;
-            white-space: nowrap;
+            white-space: nowrap; /* Impede quebras de linha nos botões */
         }
 
         .btn-action {
@@ -86,7 +85,7 @@
             text-transform: uppercase;
         }
 
-        /* --- Banner Principal --- */
+        /* --- 2. Banner Principal --- */
         .main-banner {
             background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
             background-size: cover;
@@ -161,7 +160,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 30px 0 15px 0;
+            margin: 30px 0 15px 0; /* Espaço ajustado */
         }
 
         .tab-button {
@@ -182,7 +181,7 @@
             box-shadow: 0 0 10px black;
         }
 
-        /* --- Barra de Pesquisa --- */
+        /* --- 3. Barra de Pesquisa --- */
         .search-section {
             display: flex;
             justify-content: center;
@@ -198,7 +197,7 @@
 
         .search-input {
             width: 100%;
-            padding: 10px 20px 10px 45px;
+            padding: 10px 20px 10px 45px; /* Padding ajustado para a lupa */
             border: 4px solid var(--primary-purple);
             border-radius: 8px;
             background: linear-gradient(to left, #c7c9ce, #cfd2da, #e2e4e8);
@@ -217,7 +216,7 @@
             font-size: 1.2em;
         }
         
-        /* Estilos dos Cartões */
+        /* Estilos dos Cartões (Mantidos e Simplificados) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
@@ -238,6 +237,10 @@
             position: relative;
             transition: transform 0.2s;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
         }
 
         .card-top {
@@ -341,19 +344,24 @@
             margin-top: 15px;
             transition: opacity 0.2s;
         }
+
+        .btn-jogue-agora-span:hover {
+            opacity: 0.9;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="container navbar-content">
             <div class="nav-buttons">
-                <a href="pg-games.html" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
-                <a href="index.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
-                <a href="gerar-sinais.html" class="nav-link"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
-                <a href="https://www.aquelepg.com/?id=246003088" target="_blank" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
-                <a href="wg-games.html" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
-                <a href="tada-games.html" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
+                <a href="#" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
+                <a href="#" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="#" class="nav-link"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
+                <a href="#" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
+                <a href="#" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
+                <a href="#" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
                 <a href="#" class="nav-link btn-action">BAIXAR APP</a>
             </div>
         </div>
@@ -410,7 +418,7 @@
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         const gamesData = [
-            // Dados dos 33 jogos da Pragmatic Play (PP GAMES)
+            // Dados dos 33 jogos (MANTIDOS do código anterior)
             { nome: "Treasure Wild", distribuicao: 79, minima: 78, padrao: 25, maxima: 73, cor: "bg-orange" },
             { nome: "Starlight Princess", distribuicao: 61, minima: 58, padrao: 49, maxima: 13, cor: "bg-yellow" },
             { nome: "Buffalo King Untamed Megaways", distribuicao: 63, minima: 60, padrao: 56, maxima: 27, cor: "bg-purple" },
@@ -451,7 +459,6 @@
             { nome: "Super X", distribuicao: 98, minima: 98, padrao: 11, maxima: 19, cor: "bg-dark-green" },
         ];
 
-        // FUNÇÕES JS PARA RENDERIZAÇÃO
         const cardsContainer = document.getElementById('cards-container');
 
         function getPercentageColor(percentage) {
