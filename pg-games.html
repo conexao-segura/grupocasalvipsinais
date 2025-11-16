@@ -372,3 +372,233 @@
                     <a href="#" class="download-link"><i class="fab fa-google-play"></i> Google Play</a>
                     <a href="#" class="download-link"><i class="fab fa-apple"></i> App Store</a>
                 </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="filter-tabs">
+            <button class="tab-button active"><i class="fas fa-fire" style="color: orange;"></i> HOT</button>
+            <button class="tab-button"><i class="fas fa-star" style="color: yellow;"></i> NEW</button>
+            <button class="tab-button"> <i class="fas fa-list"></i> ALL</button>
+            <button class="tab-button"><i class="fas fa-heart" style="color: red;"></i> FAV</button>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquise seu jogo aqui...">
+            </div>
+        </section>
+
+        <section id="game-list-section">
+            <div id="cards-container" class="cards-grid">
+                </div>
+        </section>
+    </main>
+
+    <footer class="footer" style="background-color: #111; padding: 20px 0;">
+        <div class="container">
+            <h1 style="color: var(--green-text);">DEFENSORES DO JOGO RESPONSÁVEL</h1>
+            <p>O site é um modelo. Lembre-se sempre de verificar as regulamentações locais.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Link de destino para todos os cartões
+        const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
+
+        const gamesData = [
+            // DADOS DOS JOGOS DA PG GAMES (57 JOGOS NA ORDEM DAS IMAGENS)
+
+            // Imagem 1 (Fortune Rabbit, Fortune Tiger, Fortune Ox, Fortune Mouse, etc.)
+            { nome: "Fortune Rabbit", distribuicao: 65, minima: 57, padrao: 64, maxima: 48, cor: "bg-blue" },
+            { nome: "Fortune Tiger", distribuicao: 90, minima: 40, padrao: 50, maxima: 89, cor: "bg-red" },
+            { nome: "Fortune Ox", distribuicao: 90, minima: 55, padrao: 65, maxima: 89, cor: "bg-red" },
+            { nome: "Fortune Mouse", distribuicao: 98, minima: 12, padrao: 100, maxima: 53, cor: "bg-orange" },
+            { nome: "Fortune Dragon", distribuicao: 92, minima: 74, padrao: 91, maxima: 64, cor: "bg-green" },
+            { nome: "Fortune Snake", distribuicao: 87, minima: 47, padrao: 84, maxima: 49, cor: "bg-dark-green" },
+            { nome: "Graffiti Rush", distribuicao: 98, minima: 37, padrao: 98, maxima: 18, cor: "bg-pink" },
+            { nome: "Mr. Treasure's Fortune", distribuicao: 98, minima: 12, padrao: 91, maxima: 98, cor: "bg-dark-purple" },
+            
+            // Imagem 2 (Mystic Potion, Cash Mania, Jungle Delight, etc.)
+            { nome: "Mystic Potion", distribuicao: 49, minima: 21, padrao: 18, maxima: 46, cor: "bg-purple" },
+            { nome: "Cash Mania", distribuicao: 61, minima: 60, padrao: 20, maxima: 28, cor: "bg-yellow" },
+            { nome: "Jungle Delight", distribuicao: 47, minima: 46, padrao: 40, maxima: 42, cor: "bg-green" },
+            { nome: "Shark Hunter", distribuicao: 58, minima: 55, padrao: 42, maxima: 18, cor: "bg-blue" },
+            { nome: "Muay Thai Champion", distribuicao: 77, minima: 52, padrao: 20, maxima: 74, cor: "bg-red" },
+            { nome: "Wild Bandito", distribuicao: 82, minima: 81, padrao: 72, maxima: 75, cor: "bg-brown" },
+            { nome: "Futebol Fever", distribuicao: 87, minima: 45, padrao: 50, maxima: 86, cor: "bg-dark-green" },
+            { nome: "Super Market Spree", distribuicao: 75, minima: 56, padrao: 40, maxima: 72, cor: "bg-green" },
+
+            // Imagem 3 (Ganesha Fortune, Piggy Gold, Circus Delight, etc.)
+            { nome: "Ganesha Fortune", distribuicao: 69, minima: 66, padrao: 12, maxima: 32, cor: "bg-brown" },
+            { nome: "Piggy Gold", distribuicao: 98, minima: 93, padrao: 25, maxima: 95, cor: "bg-red" },
+            { nome: "Circus Delight", distribuicao: 95, minima: 10, padrao: 94, maxima: 72, cor: "bg-green" },
+            { nome: "Captain's Bounty", distribuicao: 98, minima: 51, padrao: 71, maxima: 98, cor: "bg-dark-green" },
+            { nome: "Phoenix Rises", distribuicao: 94, minima: 21, padrao: 91, maxima: 40, cor: "bg-orange" },
+            { nome: "Midas Fortune", distribuicao: 98, minima: 97, padrao: 79, maxima: 18, cor: "bg-yellow" },
+            { nome: "Genie's 3 Wishes", distribuicao: 22, minima: 21, padrao: 13, maxima: 15, cor: "bg-dark-purple" },
+            { nome: "Zombie Outbreak", distribuicao: 73, minima: 68, padrao: 16, maxima: 72, cor: "bg-red" },
+
+            // Imagem 4 (Rio Fantasia, Incan Wonders, Geisha's Revenge, etc.)
+            { nome: "Rio Fantasia", distribuicao: 74, minima: 71, padrao: 14, maxima: 11, cor: "bg-pink" },
+            { nome: "Incan Wonders", distribuicao: 77, minima: 10, padrao: 74, maxima: 66, cor: "bg-yellow" },
+            { nome: "Geisha's Revenge", distribuicao: 98, minima: 48, padrao: 29, maxima: 99, cor: "bg-dark-purple" },
+            { nome: "Chocolate Deluxe", distribuicao: 61, minima: 25, padrao: 37, maxima: 58, cor: "bg-brown" },
+            { nome: "Doomsday Rampage", distribuicao: 26, minima: 10, padrao: 23, maxima: 21, cor: "bg-dark-green" },
+            { nome: "Mafia Mayhem", distribuicao: 96, minima: 32, padrao: 90, maxima: 95, cor: "bg-red" },
+            { nome: "Dragon Hatch 2", distribuicao: 96, minima: 21, padrao: 95, maxima: 11, cor: "bg-green" },
+            { nome: "Ganesha Gold", distribuicao: 86, minima: 87, padrao: 70, maxima: 79, cor: "bg-orange" },
+
+            // Imagem 5 (Werwolf's Hunt, Wild Ape, Dragon Tiger Luck, etc.)
+            { nome: "Werewolf's Hunt", distribuicao: 90, minima: 87, padrao: 60, maxima: 65, cor: "bg-dark-green" },
+            { nome: "Wild Ape", distribuicao: 98, minima: 27, padrao: 99, maxima: 51, cor: "bg-green" },
+            { nome: "Dragon Tiger Luck", distribuicao: 76, minima: 46, padrao: 73, maxima: 55, cor: "bg-purple" },
+            { nome: "Tsar Treasures", distribuicao: 57, minima: 48, padrao: 34, maxima: 54, cor: "bg-yellow" },
+            { nome: "Dragon Hatch", distribuicao: 72, minima: 21, padrao: 71, maxima: 34, cor: "bg-red" },
+            { nome: "Bikini Paradise", distribuicao: 74, minima: 13, padrao: 73, maxima: 61, cor: "bg-blue" },
+            { nome: "Anubis Wrath", distribuicao: 88, minima: 68, padrao: 87, maxima: 85, cor: "bg-dark-green" },
+            { nome: "Songkran Splash", distribuicao: 94, minima: 69, padrao: 91, maxima: 37, cor: "bg-red" },
+
+            // Imagem 6 (Lucky Piggy, Mahjong Ways 2, Mahjong Ways, etc.)
+            { nome: "Lucky Piggy", distribuicao: 84, minima: 81, padrao: 76, maxima: 16, cor: "bg-dark-purple" },
+            { nome: "Mahjong Ways 2", distribuicao: 98, minima: 100, padrao: 49, maxima: 11, cor: "bg-green" },
+            { nome: "Mahjong Ways", distribuicao: 67, minima: 31, padrao: 66, maxima: 19, cor: "bg-red" },
+            { nome: "Ways of The Qilin", distribuicao: 76, minima: 75, padrao: 30, maxima: 46, cor: "bg-orange" },
+            { nome: "Lucky Neko", distribuicao: 86, minima: 85, padrao: 52, maxima: 15, cor: "bg-yellow" },
+            { nome: "Rise Of Apollo", distribuicao: 79, minima: 37, padrao: 76, maxima: 69, cor: "bg-blue" },
+            { nome: "Queen Of Bounty", distribuicao: 78, minima: 75, padrao: 11, maxima: 62, cor: "bg-red" },
+            { nome: "Cocktail Nights", distribuicao: 93, minima: 92, padrao: 65, maxima: 38, cor: "bg-dark-purple" },
+
+            // Imagem 7 (Leprechaun Riches, Prosperity Fortune Tree, Destiny Of Suns Moon, etc.)
+            { nome: "Leprechaun Riches", distribuicao: 86, minima: 85, padrao: 44, maxima: 81, cor: "bg-brown" },
+            { nome: "Prosperity Fortune Tree", distribuicao: 95, minima: 56, padrao: 29, maxima: 92, cor: "bg-dark-green" },
+            { nome: "Destiny Of Suns Moon", distribuicao: 72, minima: 57, padrao: 16, maxima: 71, cor: "bg-purple" },
+            { nome: "Candy Bonanza", distribuicao: 77, minima: 76, padrao: 65, maxima: 55, cor: "bg-blue" },
+            { nome: "Heist Stakes", distribuicao: 66, minima: 49, padrao: 85, maxima: 66, cor: "bg-pink" },
+            { nome: "Emperor's Favour", distribuicao: 84, minima: 13, padrao: 83, maxima: 42, cor: "bg-red" },
+            { nome: "Butterfly Blossom", distribuicao: 98, minima: 71, padrao: 98, maxima: 90, cor: "bg-purple" },
+            { nome: "Prosperity Lion", distribuicao: 85, minima: 31, padrao: 11, maxima: 84, cor: "bg-red" },
+
+            // Imagem 8 (Buffalo Win, Alchemy Gold, Tree Of Fortune, etc.)
+            { nome: "Buffalo Win", distribuicao: 60, minima: 59, padrao: 21, maxima: 19, cor: "bg-brown" },
+            { nome: "Alchemy Gold", distribuicao: 80, minima: 77, padrao: 18, maxima: 26, cor: "bg-purple" },
+            { nome: "Tree Of Fortune", distribuicao: 82, minima: 25, padrao: 30, maxima: 79, cor: "bg-green" },
+            { nome: "Diner Delights", distribuicao: 61, minima: 58, padrao: 32, maxima: 37, cor: "bg-yellow" },
+            { nome: "Win Win Won", distribuicao: 81, minima: 62, padrao: 80, maxima: 10, cor: "bg-red" },
+            { nome: "Totem Wonders", distribuicao: 75, minima: 74, padrao: 13, maxima: 70, cor: "bg-purple" },
+            { nome: "Mermaid Riches", distribuicao: 85, minima: 82, padrao: 32, maxima: 18, cor: "bg-blue" },
+            { nome: "Wild Bounty Showdown", distribuicao: 78, minima: 26, padrao: 36, maxima: 75, cor: "bg-brown" },
+        ];
+
+
+        // FUNÇÕES JS PARA RENDERIZAÇÃO (Mantidas as mesmas)
+        const cardsContainer = document.getElementById('cards-container');
+
+        function getPercentageColor(percentage) {
+            if (percentage >= 70) return 'var(--green-text)';
+            if (percentage >= 40) return 'var(--text-gold)';
+            return 'var(--red-text)';
+        }
+        
+        function getLinkColor(className) {
+            switch(className) {
+                case 'bg-green': case 'bg-dark-green': return '#008000';
+                case 'bg-red': return '#990000';
+                case 'bg-purple': case 'bg-dark-purple': case 'bg-blue': case 'bg-pink': return '#6a0dad';
+                case 'bg-yellow': case 'bg-orange': case 'bg-brown': return '#cc6600';
+                default: return '#490195'; 
+            }
+        }
+
+        function createGameCard(game) {
+            
+            const cardLink = DEFAULT_GAME_LINK;
+
+            const betRangeHTML = `
+                <div class="bet-range">
+                    Mínima R$0,50 a R$2,40<br>
+                    Padrão R$2,50 a R$8,00<br>
+                    Máxima acima de R$10,00
+                </div>
+            `;
+            
+            const linkColor = getLinkColor(game.cor);
+            
+            // Lista de jogos PG que usam o botão "JOGUE AGORA" no lugar do range (Baseado nas suas imagens)
+            const gamesWithPlayNowButton = [
+                "Prosperity Fortune Tree", "Lucky Piggy", "Mahjong Ways 2", "Cocktail Nights", "Geisha's Revenge", "Mafia Mayhem", 
+                "Dragon Hatch 2", "Werewolf's Hunt", "Wild Ape", "Songkran Splash", "Ganesha Fortune", "Piggy Gold", 
+                "Circus Delight", "Captain's Bounty", "Phoenix Rises", "Midas Fortune", "Emperor's Favour", "Butterfly Blossom"
+            ];
+
+            const hasPlayNowButton = gamesWithPlayNowButton.includes(game.nome);
+
+            const buttonOrRangeHTML = hasPlayNowButton ? 
+                                      `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
+                                      betRangeHTML;
+
+            const badgeHTML = game.distribuicao >= 90 ? `<span style="color: ${getPercentageColor(90)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+90%</span>` : '';
+
+
+            return `
+                <a href="${cardLink}" class="game-card-link" target="_blank">
+                    <div class="game-card">
+                        <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
+                            ${badgeHTML}
+                            <i class="fas fa-heart favorite-btn"></i>
+                            <div class="card-overlay">
+                                Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body" style="background-color: ${linkColor};">
+                            <div class="game-name">
+                                <span class="game-icon-placeholder" style="background-color: ${linkColor};"></span>
+                                ${game.nome}
+                            </div>
+                            
+                            <div class="game-info">
+                                <span>Mínima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.minima)};">${game.minima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.minima}%; background-color: ${getPercentageColor(game.minima)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Padrão:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.padrao)};">${game.padrao}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.padrao}%; background-color: ${getPercentageColor(game.padrao)};"></div>
+                            </div>
+
+                            <div class="game-info">
+                                <span>Máxima:</span>
+                                <span class="percentage-value" style="color: ${getPercentageColor(game.maxima)};">${game.maxima}%</span>
+                            </div>
+                            <div class="progress-bar" style="background-color: rgba(255, 255, 255, 0.3);">
+                                <div class="progress-fill" style="width: ${game.maxima}%; background-color: ${getPercentageColor(game.maxima)};"></div>
+                            </div>
+
+                            ${buttonOrRangeHTML}
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function renderGames(data) {
+            cardsContainer.innerHTML = data.map(createGameCard).join('');
+        }
+
+        setTimeout(() => {
+            renderGames(gamesData);
+        }, 500);
+    </script>
+
+</body>
+</html>
