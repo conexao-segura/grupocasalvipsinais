@@ -7,13 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* [INSERIR AQUI APENAS O CSS BÁSICO DO SEU index.html] */
+        /* Estilos globais */
         :root {
             --bg-dark: #1a1a1a;
             --primary-purple: #490195;
+            --secondary-purple: #7a02f0;
             --text-light: #f5f5f5;
             --text-gold: #ffcb51;
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --dark-card-bg: #222222;
+            --green-text: #00ff00;
+            --red-text: #ff0000;
+            --blue-signal: #2e3b97; /* Cor azul escura dos painéis de sinal */
         }
 
         * {
@@ -28,6 +33,10 @@
             color: var(--text-light);
             padding-top: 60px; 
             text-align: center;
+            background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade'); /* Fundo da cidade */
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
         }
 
         .container {
@@ -36,69 +45,163 @@
             padding: 0 15px;
         }
 
-        /* NavBar (Cópia simplificada) */
+        /* --- Navbar (Mesma estrutura) --- */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background-color: var(--bg-dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--nav-shadow);
             z-index: 100;
             padding: 5px 0;
         }
         .nav-buttons { display: flex; justify-content: center; gap: 5px; padding: 5px 0; }
-        .nav-link { text-decoration: none; padding: 6px 10px; border-radius: 5px; font-weight: 700; font-size: 0.8em; color: var(--text-light); background-color: #333; border: 1px solid var(--primary-purple); }
+        .nav-link { text-decoration: none; padding: 6px 10px; border-radius: 5px; font-weight: 700; font-size: 0.8em; color: var(--text-light); background-color: #333; border: 1px solid var(--primary-purple); white-space: nowrap; }
         .btn-action { background-color: #1a1a1a; border: 1px solid var(--primary-purple); color: var(--text-gold); font-weight: 800; text-transform: uppercase; }
 
-        /* Estilos do Gerador */
-        .generator-box {
-            background-color: #222;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            margin: 50px auto;
-            border: 3px solid var(--primary-purple);
+
+        /* --- 1. Cartões de Seleção de Jogo (Tela Inicial) --- */
+        #game-selection {
+            padding: 40px 0;
         }
 
-        .signal-result {
-            background-color: #000;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: var(--text-gold);
-            min-height: 80px;
+        .cards-grid {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-weight: 700;
-        }
-
-        .select-game, .btn-generate {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #555;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-top: 20px;
         }
         
-        .select-game {
-            background-color: #333;
-            color: var(--text-light);
+        .game-select-card {
+            width: 200px;
+            background-color: var(--dark-card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .game-select-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--secondary-purple);
         }
 
-        .btn-generate {
+        .card-image-top {
+            width: 100%;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-body {
+            padding: 15px 10px;
+            text-align: center;
+        }
+        
+        .card-title {
+            font-weight: 800;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .btn-gerar-sinal {
+            display: block;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-weight: 700;
+            color: white;
+            background-color: #990000; /* Vermelho escuro */
+            border: 1px solid white;
+        }
+        
+        .game-disclaimer {
+            font-size: 0.75em;
+            padding: 10px;
+            background-color: var(--blue-signal);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            text-align: left;
+            margin: 0 -10px -15px; /* Ajusta o padding do card-body */
+        }
+        
+        /* --- 2. Tela de Sinal (Signal Screen) --- */
+        #signal-screen {
+            padding: 40px 0;
+            display: none; /* Começa escondido */
+        }
+
+        .signal-box {
+            background-color: var(--dark-card-bg);
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            border: 3px solid var(--primary-purple);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .signal-header {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-gold);
+        }
+
+        .signal-panel {
+            background-color: var(--blue-signal);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .signal-panel i {
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        
+        .signal-label {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        .signal-value {
+            font-weight: 900;
+            font-size: 1.5em;
+            color: var(--text-gold);
+        }
+
+        .btn-generate-final {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
             background-color: #008000;
             color: white;
             font-weight: 800;
-            cursor: pointer;
             border: none;
+            border-radius: 10px;
+            cursor: pointer;
             transition: background-color 0.2s;
         }
 
-        .btn-generate:hover {
+        .btn-generate-final:hover {
             background-color: #00ff00;
+        }
+
+        .countdown-message {
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--green-text);
         }
     </style>
 </head>
@@ -108,9 +211,9 @@
         <div class="container navbar-content">
             <div class="nav-buttons">
                 <a href="pg-games.html" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
-                <a href="index.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
-                <a href="gerar-sinais.html" class="nav-link active"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
-                <a href="#" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="gerar-sinais.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
+                <a href="https://www.aquelepg.com/?id=246003088" target="_blank" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
                 <a href="wg-games.html" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
                 <a href="tada-games.html" class="nav-link"><i class="fas fa-star" style="color: yellow;"></i> TADA GAMING</a>
                 <a href="#" class="nav-link btn-action">BAIXAR APP</a>
@@ -119,53 +222,145 @@
     </nav>
 
     <main class="container">
-        <h1 style="color: var(--text-gold); margin-top: 30px;">🔥 GERADOR DE SINAIS FP 🔥</h1>
-        
-        <div class="generator-box">
-            <h2>Selecione o Jogo</h2>
-            <select id="game-selector" class="select-game">
-                <option value="">-- Selecione um Jogo --</option>
-                <option value="Fortune Tiger">Fortune Tiger (PG)</option>
-                <option value="Gates of Olympus">Gates of Olympus (PP)</option>
-                <option value="Wolf Gold">Wolf Gold (PP)</option>
-                </select>
-            
-            <button class="btn-generate" onclick="generateSignal()">GERAR SINAL AGORA</button>
-            
-            <div id="signal-output" class="signal-result">
-                Aguardando a geração do sinal...
+        <section id="game-selection">
+            <h1 style="color: var(--text-gold); margin-top: 30px;">ESCOLHA SEU JOGO PARA SINAL</h1>
+            <div id="game-cards-container" class="cards-grid">
+                </div>
+            <p style="margin-top: 40px; font-size: 0.9em; color: rgba(255, 255, 255, 0.7);">Os sinais são válidos apenas para as casas parceiras do Grupo FP.</p>
+        </section>
+
+        <section id="signal-screen">
+            <div class="signal-box">
+                <h2 id="signal-game-title" class="signal-header"></h2>
+                
+                <div id="normal-panel" class="signal-panel">
+                    <i class="fas fa-redo-alt" style="color: var(--green-text);"></i>
+                    <span class="signal-label">NORMAL:</span>
+                    <span id="normal-signal" class="signal-value">--</span>
+                </div>
+                
+                <div id="turbo-panel" class="signal-panel">
+                    <i class="fas fa-bolt" style="color: yellow;"></i>
+                    <span class="signal-label">TURBO:</span>
+                    <span id="turbo-signal" class="signal-value">--</span>
+                </div>
+                
+                <div id="time-panel" class="signal-panel">
+                    <i class="fas fa-clock" style="color: white;"></i>
+                    <span class="signal-label">JOGUE ATÉ:</span>
+                    <span id="time-signal" class="signal-value">--</span>
+                </div>
+
+                <button id="generate-button" class="btn-generate-final" onclick="generateNewSignal()">GERAR SINAL</button>
+                
+                <p id="countdown" class="countdown-message" style="display: none;"></p>
+                <button id="back-button" class="btn-generate-final" style="background-color: #333; margin-top: 15px;" onclick="showGameSelection()">VOLTAR</button>
             </div>
-        </div>
+        </section>
     </main>
 
+    <footer style="background-color: #111; padding: 20px 0; margin-top: 50px;">
+        <div class="container">
+            <p style="font-size: 0.8em;">DEFENSORES DO JOGO RESPONSÁVEL. O jogo é destinado a maiores de 18 anos.</p>
+        </div>
+    </footer>
+
     <script>
-        function generateSignal() {
-            const output = document.getElementById('signal-output');
-            const game = document.getElementById('game-selector').value;
-            
-            if (!game) {
-                output.innerHTML = "⚠️ Por favor, selecione um jogo para gerar o sinal.";
-                output.style.color = "yellow";
-                return;
-            }
+        const gameCardsContainer = document.getElementById('game-cards-container');
+        const selectionScreen = document.getElementById('game-selection');
+        const signalScreen = document.getElementById('signal-screen');
+        const generateButton = document.getElementById('generate-button');
+        const countdownElement = document.getElementById('countdown');
+        let countdownInterval;
 
-            output.style.color = "white";
-            output.innerHTML = `<i class="fas fa-cog fa-spin"></i> Gerando sinal para ${game}...`;
+        const gamesData = [
+            // Dados dos jogos PG que aparecem na imagem 2
+            { nome: "FORTUNE-RABBIT", cor: "red" },
+            { nome: "FORTUNE-TIGER", cor: "red" },
+            { nome: "FORTUNE-OX", cor: "orange" },
+            { nome: "FORTUNE-MOUSE", cor: "orange" },
+            { nome: "FORTUNE-DRAGON", cor: "purple" },
+        ];
 
-            // Simulação de tempo de espera
-            setTimeout(() => {
-                const signals = [
-                    "ENTRADA: 2x R$2,00 (PADRÃO)",
-                    "ESTRATÉGIA: 10x Turbo, depois 2x Max. ",
-                    "SINAL FORTE: Rodar 5x Manual Mínima.",
-                    "SINAL DE SAÍDA: 3x R$5,00 + BÔNUS"
-                ];
-                const randomSignal = signals[Math.floor(Math.random() * signals.length)];
-                
-                output.style.color = "var(--text-gold)";
-                output.innerHTML = `✅ SINAL PARA ${game}: ${randomSignal}`;
-            }, 2000); // Espera 2 segundos
+        function createGameSelectCard(game) {
+            return `
+                <a class="game-select-card" onclick="showSignalScreen('${game.nome}')">
+                    <div class="card-image-top" style="background-image: url('https://via.placeholder.com/200x150/502080/FFFFFF?text=${game.nome.replace(/-/g, '+')}');">
+                        </div>
+                    <div class="card-body">
+                        <div class="card-title">${game.nome}</div>
+                        <span class="btn-gerar-sinal">GERAR SINAL <i class="fas fa-circle" style="font-size: 0.6em; color: var(--green-text);"></i></span>
+                    </div>
+                    <div class="game-disclaimer">
+                        Os sinais do ${game.nome.toLowerCase()} são válidos apenas para nossas casas!
+                    </div>
+                </a>
+            `;
         }
+        
+        function renderGameSelection() {
+            gameCardsContainer.innerHTML = gamesData.map(createGameSelectCard).join('');
+        }
+
+        function showSignalScreen(gameName) {
+            document.getElementById('signal-game-title').textContent = gameName;
+            selectionScreen.style.display = 'none';
+            signalScreen.style.display = 'block';
+            
+            // Limpa sinais antigos e reseta o estado
+            document.getElementById('normal-signal').textContent = '--';
+            document.getElementById('turbo-signal').textContent = '--';
+            document.getElementById('time-signal').textContent = '--';
+            generateButton.style.display = 'block';
+            countdownElement.style.display = 'none';
+            clearInterval(countdownInterval);
+        }
+
+        function generateNewSignal() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = (now.getMinutes() + 5) % 60; // Simula 5 minutos para o JOGUE ATÉ
+            const timeSignal = `${hours}:${minutes.toString().padStart(2, '0')}`;
+
+            const normalSpins = Math.floor(Math.random() * 5) + 3; // 3X a 7X
+            const turboSpins = Math.floor(Math.random() * 10) + 5; // 5X a 14X
+            
+            // Exibe os sinais
+            document.getElementById('normal-signal').textContent = `${normalSpins}X`;
+            document.getElementById('turbo-signal').textContent = `${turboSpins}X`;
+            document.getElementById('time-signal').textContent = timeSignal;
+            
+            generateButton.style.display = 'none';
+            startCountdown(60); // Inicia contagem regressiva de 60 segundos
+        }
+
+        function startCountdown(duration) {
+            let timer = duration;
+            countdownElement.style.display = 'block';
+            
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+
+                countdownElement.textContent = `AGUARDE ${seconds}s PARA NOVO SINAL`;
+                
+                if (--timer < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.style.display = 'none';
+                    generateButton.style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        function showGameSelection() {
+            selectionScreen.style.display = 'block';
+            signalScreen.style.display = 'none';
+            clearInterval(countdownInterval);
+        }
+        
+        // Renderiza a tela inicial ao carregar
+        renderGameSelection();
     </script>
 </body>
 </html>
