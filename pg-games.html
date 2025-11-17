@@ -403,6 +403,7 @@
 
         <section id="game-list-section">
             <div id="cards-container" class="cards-grid">
+                <p style="text-align: center; width: 100%; padding: 50px 0;">Carregando dados dos jogos...</p>
                 </div>
         </section>
     </main>
@@ -423,19 +424,21 @@
 
         function getGlobalTimeIndex() {
             const date = new Date();
+            // Índice baseado em minutos UTC, atualizado a cada 5 minutos
             const totalMinutesUTC = (date.getUTCHours() * 60) + date.getUTCMinutes();
             const index = Math.floor(totalMinutesUTC / 5);
             return index;
         }
 
         function generateNewPercentage(nomeJogo, provedor, type, minuteIndex) {
+            // Garante que o cálculo seja determinístico (o mesmo a cada 5 minutos)
             const seed = (nomeJogo.length + provedor.length + type.length) * minuteIndex;
             let hash = 0;
             for (let i = 0; i < nomeJogo.length; i++) {
                 hash = nomeJogo.charCodeAt(i) + ((hash << 5) - hash);
             }
             let newPercent = Math.abs(hash * seed) % 100;
-            return Math.max(10, newPercent);
+            return Math.max(10, newPercent); // Garante que a porcentagem mínima seja 10%
         }
 
         function updateGameData(originalData) {
@@ -459,7 +462,6 @@
         }
         
         // === DADOS ORIGINAIS DOS JOGOS PG GAMES (63 JOGOS) ===
-        // Apenas dados BASE (nome, cor). As porcentagens são geradas dinamicamente.
         const gamesData = [
             { nome: "Fortune Rabbit", cor: "bg-blue", provedor: "PG" },
             { nome: "Fortune Tiger", cor: "bg-red", provedor: "PG" },
@@ -528,7 +530,8 @@
         ];
 
 
-        const cardsContainer = document.getElementById('cards-container');
+        // --- FUNÇÕES DE RENDERIZAÇÃO E CRIAÇÃO DE CARD ---
+        
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         function getPercentageColor(percentage) {
@@ -539,18 +542,31 @@
         
         function getLinkColor(className) {
             switch(className) {
-                case 'bg-green': case 'bg-dark-green': return '#008000';
-                case 'bg-red': return '#990000';
-                case 'bg-purple': case 'bg-dark-purple': case 'bg-blue': case 'bg-pink': return '#6a0dad';
-                case 'bg-yellow': case 'bg-orange': case 'bg-brown': return '#cc6600';
-                default: return '#490195'; 
+                case 'bg-green': 
+                case 'bg-dark-green': 
+                    return '#008000';
+                case 'bg-red': 
+                    return '#990000';
+                case 'bg-purple': 
+                case 'bg-dark-purple': 
+                case 'bg-blue': 
+                case 'bg-pink': 
+                    return '#6a0dad';
+                case 'bg-yellow': 
+                case 'bg-orange': 
+                case 'bg-brown': 
+                    return '#cc6600';
+                default: 
+                    return '#490195'; 
             }
         }
 
         function createGameCard(game) {
+            // Lista de jogos que terão o botão "JOGUE AGORA"
             const hasPlayNowButton = ["Prosperity Fortune Tree", "Lucky Piggy", "Mahjong Ways 2", "Cocktail Nights", "Geisha's Revenge", "Mafia Mayhem", "Dragon Hatch 2", "Werewolf's Hunt", "Wild Ape", "Songkran Splash", "Ganesha Fortune", "Piggy Gold", "Circus Delight", "Captain's Bounty", "Phoenix Rises", "Midas Fortune", "Emperor's Favour", "Butterfly Blossom", "Graffiti Rush", "Mr. Treasure's Fortune"].includes(game.nome);
             const linkColor = getLinkColor(game.cor);
 
+            // Conteúdo HTML para o botão ou o texto de aposta
             const betRangeHTML = `
                 <div class="bet-range">
                     Mínima R$0,50 a R$2,40<br>
@@ -565,10 +581,13 @@
 
             const providerTag = `<span class="provider-tag">${game.provedor}</span>`;
 
+            // Garante que o nome do jogo seja seguro para URL (remove espaços)
+            const safeGameName = game.nome.replace(/\s/g, '+');
+
             return `
                 <a href="${DEFAULT_GAME_LINK}" class="game-card-link" target="_blank">
                     <div class="game-card">
-                        <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
+                        <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${safeGameName}');">
                             ${providerTag}
                             <i class="fas fa-heart favorite-btn"></i>
                             <div class="card-overlay">
@@ -614,21 +633,41 @@
         }
 
         function renderAllGames() {
+            const cardsContainer = document.getElementById('cards-container');
+            if (!cardsContainer) {
+                console.error("Erro: Container de jogos 'cards-container' não encontrado.");
+                return;
+            }
+            
             const updatedData = updateGameData(gamesData);
             
             if (updatedData.length > 0) {
+                 // Geração e inserção de todos os cartões de uma só vez
                  cardsContainer.innerHTML = updatedData.map(createGameCard).join('');
             } else {
                  cardsContainer.innerHTML = '<p style="text-align: center; width: 100%; padding: 50px 0; font-size: 1.2em; color: #ffcb51;">Nenhum jogo encontrado.</p>';
             }
         }
 
-        // Loop de atualização
+        // Loop de atualização com tratamento de erro
         function initUpdateLoop() {
-            renderAllGames();
+            const cardsContainer = document.getElementById('cards-container');
+            if (!cardsContainer) return; // Parar se o container não for encontrado
+            
+            try {
+                renderAllGames();
+            } catch (error) {
+                console.error("ERRO CRÍTICO ao tentar renderizar os jogos:", error);
+                // Exibe uma mensagem de erro na tela para o usuário
+                cardsContainer.innerHTML = '<p style="text-align: center; width: 100%; padding: 50px 0; font-size: 1.2em; color: var(--red-text);">ERRO! Não foi possível carregar os jogos. Verifique o console do navegador para mais detalhes.</p>';
+                return; // Para o loop se houver um erro crítico
+            }
+            
+            // Continua o loop a cada 5 segundos
             setTimeout(initUpdateLoop, 5000); 
         }
         
+        // Inicia o processo de renderização
         initUpdateLoop();
     </script>
 </body>
