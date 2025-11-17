@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FP - SINAIS SLOTS - PP GAMES</title>
+    <title>FP - SINAIS SLOTS - PP GAMES (Completo)</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -336,6 +336,21 @@
             margin-top: 15px;
             transition: opacity 0.2s;
         }
+        
+        .provider-tag {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            font-weight: 900;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            color: var(--text-gold);
+            z-index: 10;
+            border: 1px solid var(--text-gold);
+        }
+
     </style>
 </head>
 <body>
@@ -344,7 +359,7 @@
         <div class="container navbar-content">
             <div class="nav-buttons">
                 <a href="pg-games.html" class="nav-link"><i class="fas fa-gem" style="color: yellow;"></i> JOGOS PG</a>
-                <a href="index.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
+                <a href="pp-games.html" class="nav-link" style="border-color: var(--text-gold);"><i class="fas fa-crown" style="color: var(--text-gold);"></i> JOGOS PP</a>
                 <a href="gerar-sinais.html" class="nav-link"><i class="fas fa-brain" style="color: red;"></i> GERAR SINAIS</a>
                 <a href="https://www.aquelepg.com/?id=246003088" target="_blank" class="nav-link btn-action" style="background-color: #008000; border-color: #00ff00;">JOGUE AGORA</a>
                 <a href="wg-games.html" class="nav-link"><i class="fas fa-dice" style="color: white;"></i> WG GAMES</a>
@@ -372,6 +387,7 @@
     </header>
 
     <main class="container">
+        
         <section class="filter-tabs">
             <button class="tab-button"><i class="fas fa-fire" style="color: orange;"></i> HOT</button>
             <button class="tab-button"><i class="fas fa-star" style="color: yellow;"></i> NEW</button>
@@ -388,14 +404,15 @@
 
         <section id="game-list-section">
             <div id="cards-container" class="cards-grid">
-                </div>
+                <p style="text-align: center; width: 100%; padding: 50px 0;">Carregando dados dos jogos...</p>
+            </div>
         </section>
     </main>
 
     <footer class="footer" style="background-color: #000; padding: 40px 0;">
         <div class="container" style="max-width: 900px; text-align: left;">
             <h1 style="color: var(--green-text); font-size: 1.5em; margin-bottom: 10px;">DEFENSORES DO JOGO RESPONSÁVEL</h1>
-            <p style="font-size: 0.9em; line-height: 1.5;">Nós do Grupo FP, promovemos o jogo responsável como uma forma de entretenimento. Se o jogo deixar de ser divertido, é hora de parar. Para informações sobre sinais de problemas com jogos de azar, visite BeGambleAware. O jogo é destinado a maiores de 18 anos – é ilegal para menores.</p>
+            <p style="font-size: 0.9em; line-height: 1.5;">Nós do Grupo FP, promovemos o jogo responsável como uma forma de entretenimento. Se o jogo deixar de ser divertido, é hora de parar. O jogo é destinado a maiores de 18 anos – é ilegal para menores.</p>
             
             <h1 style="color: var(--green-text); font-size: 1.5em; margin-top: 30px; margin-bottom: 10px;">AVISO LEGAL</h1>
             <p style="font-size: 0.9em; line-height: 1.5;">O site grupofpsinais.net é uma plataforma independente dedicada a cassinos online e jogos de cassino. Fornecemos análises detalhadas e imparciais, mas recomendamos sempre verificar as regulamentações locais antes de participar de qualquer atividade de jogo.</p>
@@ -404,17 +421,17 @@
 
     <script>
         // FUNÇÕES DE TEMPO E DETERMINÍSTICAS (PARA ATUALIZAÇÃO A CADA 5 MINUTOS)
-        function getBrazilTimeIndex() {
+        // =========================================================================
+
+        function getGlobalTimeIndex() {
             const date = new Date();
-            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-            const brTime = new Date(utc - (3600000 * 3));
-            const totalMinutes = (brTime.getHours() * 60) + brTime.getMinutes();
-            const index = Math.floor(totalMinutes / 5);
+            const totalMinutesUTC = (date.getUTCHours() * 60) + date.getUTCMinutes();
+            const index = Math.floor(totalMinutesUTC / 5);
             return index;
         }
 
-        function generateNewPercentage(nomeJogo, minuteIndex) {
-            const seed = nomeJogo.length + minuteIndex;
+        function generateNewPercentage(nomeJogo, provedor, type, minuteIndex) {
+            const seed = (nomeJogo.length + provedor.length + type.length) * minuteIndex;
             let hash = 0;
             for (let i = 0; i < nomeJogo.length; i++) {
                 hash = nomeJogo.charCodeAt(i) + ((hash << 5) - hash);
@@ -424,64 +441,71 @@
         }
 
         function updateGameData(originalData) {
-            const timeIndex = getBrazilTimeIndex();
+            const timeIndex = getGlobalTimeIndex();
+            
             return originalData.map(game => {
-                const newMinima = generateNewPercentage(game.nome + 'Min', timeIndex);
-                const newPadrao = generateNewPercentage(game.nome + 'Pad', timeIndex);
-                const newMaxima = generateNewPercentage(game.nome + 'Max', timeIndex);
+                const newMinima = generateNewPercentage(game.nome, game.provedor, 'Min', timeIndex);
+                const newPadrao = generateNewPercentage(game.nome, game.provedor, 'Pad', timeIndex);
+                const newMaxima = generateNewPercentage(game.nome, game.provedor, 'Max', timeIndex);
                 const newDistribuicao = Math.floor((newMinima + newPadrao + newMaxima) / 3);
+
                 return {
                     ...game,
                     minima: newMinima,
                     padrao: newPadrao,
                     maxima: newMaxima,
                     distribuicao: newDistribuicao,
+                    // Garante que o provedor seja 'PP' para esta página
+                    provedor: 'PP' 
                 };
             });
         }
         
-        // DADOS ORIGINAIS DOS JOGOS (Usados como base para a atualização)
+        // === DADOS ORIGINAIS DOS JOGOS PP GAMES (38 JOGOS) ===
+        // Apenas dados BASE (nome, cor). As porcentagens são geradas dinamicamente.
         const gamesData = [
-            { nome: "Treasure Wild", distribuicao: 79, minima: 78, padrao: 25, maxima: 73, cor: "bg-orange" },
-            { nome: "Starlight Princess", distribuicao: 61, minima: 58, padrao: 49, maxima: 13, cor: "bg-yellow" },
-            { nome: "Buffalo King Untamed Megaways", distribuicao: 63, minima: 60, padrao: 56, maxima: 27, cor: "bg-purple" },
-            { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green" },
-            { nome: "Mustang Gold Megaways", distribuicao: 98, minima: 98, padrao: 72, maxima: 21, cor: "bg-dark-green" },
-            { nome: "Tigre Sortudo", distribuicao: 77, minima: 12, padrao: 76, maxima: 67, cor: "bg-red" },
-            { nome: "Book of Tut", distribuicao: 81, minima: 78, padrao: 74, maxima: 70, cor: "bg-orange" },
-            { nome: "Egyptian Fortunes", distribuicao: 77, minima: 52, padrao: 18, maxima: 76, cor: "bg-red" },
-            { nome: "Gates of Olympus", distribuicao: 71, minima: 37, padrao: 15, maxima: 68, cor: "bg-purple" },
-            { nome: "The Dog House", distribuicao: 78, minima: 75, padrao: 10, maxima: 30, cor: "bg-green" },
-            { nome: "Rise of Giza PowerNudge", distribuicao: 69, minima: 21, padrao: 32, maxima: 68, cor: "bg-red" },
-            { nome: "Eye of Cleopatra", distribuicao: 43, minima: 40, padrao: 42, maxima: 14, cor: "bg-purple" },
-            { nome: "Wolf Gold", distribuicao: 61, minima: 60, padrao: 26, maxima: 13, cor: "bg-dark-purple" },
-            { nome: "Gold Party", distribuicao: 82, minima: 30, padrao: 81, maxima: 67, cor: "bg-green" },
-            { nome: "Bounty Gold", distribuicao: 98, minima: 97, padrao: 86, maxima: 18, cor: "bg-dark-purple" },
-            { nome: "Book of Fallen", distribuicao: 42, minima: 41, padrao: 39, maxima: 23, cor: "bg-red" },
-            { nome: "Santa's Wonderland", distribuicao: 80, minima: 77, padrao: 42, maxima: 60, cor: "bg-pink" },
-            { nome: "Big Juan", distribuicao: 61, minima: 56, padrao: 35, maxima: 58, cor: "bg-blue" },
-            { nome: "Star Pirates Code", distribuicao: 98, minima: 69, padrao: 15, maxima: 95, cor: "bg-dark-purple" },
-            { nome: "Mystic Chief", distribuicao: 71, minima: 31, padrao: 70, maxima: 23, cor: "bg-dark-purple" },
-            { nome: "Day of Dead", distribuicao: 86, minima: 76, padrao: 81, maxima: 85, cor: "bg-red" },
-            { nome: "Piggy Bank Bills", distribuicao: 46, minima: 30, padrao: 43, maxima: 12, cor: "bg-dark-green" },
-            { nome: "Great Rhino", distribuicao: 52, minima: 37, padrao: 51, maxima: 10, cor: "bg-brown" },
-            { nome: "Spirit of Adventure", distribuicao: 56, minima: 28, padrao: 55, maxima: 35, cor: "bg-brown" },
-            { nome: "Christmas Big Bass Bonanza", distribuicao: 52, minima: 51, padrao: 32, maxima: 26, cor: "bg-purple" },
-            { nome: "John Hunter and the Tomb of the Scarab Queen", distribuicao: 97, minima: 55, padrao: 68, maxima: 94, cor: "bg-yellow" },
-            { nome: "Cash Bonanza", distribuicao: 81, minima: 80, padrao: 66, maxima: 70, cor: "bg-green" },
-            { nome: "Madame Destiny", distribuicao: 96, minima: 48, padrao: 98, maxima: 42, cor: "bg-purple" },
-            { nome: "Drill That Gold", distribuicao: 96, minima: 41, padrao: 61, maxima: 93, cor: "bg-dark-purple" },
-            { nome: "Chicken Chase", distribuicao: 92, minima: 89, padrao: 82, maxima: 78, cor: "bg-red" },
-            { nome: "Queenie", distribuicao: 77, minima: 11, padrao: 76, maxima: 57, cor: "bg-pink" },
-            { nome: "The Ultimate 5", distribuicao: 88, minima: 73, padrao: 30, maxima: 85, cor: "bg-dark-purple" },
-            { nome: "Rock Vegas", distribuicao: 59, minima: 29, padrao: 17, maxima: 56, cor: "bg-dark-green" },
-            { nome: "Wild Depths", distribuicao: 83, minima: 82, padrao: 64, maxima: 16, cor: "bg-blue" },
-            { nome: "Magician's Secrets", distribuicao: 98, minima: 61, padrao: 99, maxima: 21, cor: "bg-pink" },
-            { nome: "Crystal Caverns Megaways", distribuicao: 61, minima: 36, padrao: 27, maxima: 60, cor: "bg-dark-purple" },
-            { nome: "Smugglers Cove", distribuicao: 71, minima: 70, padrao: 17, maxima: 51, cor: "bg-red" },
-            { nome: "Super X", distribuicao: 98, minima: 98, padrao: 11, maxima: 19, cor: "bg-dark-green" },
+            { nome: "Treasure Wild", cor: "bg-orange", provedor: "PP" },
+            { nome: "Starlight Princess", cor: "bg-yellow", provedor: "PP" },
+            { nome: "Buffalo King Untamed Megaways", cor: "bg-purple", provedor: "PP" },
+            { nome: "Hand of Midas 2", cor: "bg-green", provedor: "PP" },
+            { nome: "Mustang Gold Megaways", cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Tigre Sortudo", cor: "bg-red", provedor: "PP" },
+            { nome: "Book of Tut", cor: "bg-orange", provedor: "PP" },
+            { nome: "Egyptian Fortunes", cor: "bg-red", provedor: "PP" },
+            { nome: "Gates of Olympus", cor: "bg-purple", provedor: "PP" },
+            { nome: "The Dog House", cor: "bg-green", provedor: "PP" },
+            { nome: "Rise of Giza PowerNudge", cor: "bg-red", provedor: "PP" },
+            { nome: "Eye of Cleopatra", cor: "bg-purple", provedor: "PP" },
+            { nome: "Wolf Gold", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Gold Party", cor: "bg-green", provedor: "PP" },
+            { nome: "Bounty Gold", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Book of Fallen", cor: "bg-red", provedor: "PP" },
+            { nome: "Santa's Wonderland", cor: "bg-pink", provedor: "PP" },
+            { nome: "Big Juan", cor: "bg-blue", provedor: "PP" },
+            { nome: "Star Pirates Code", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Mystic Chief", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Day of Dead", cor: "bg-red", provedor: "PP" },
+            { nome: "Piggy Bank Bills", cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Great Rhino", cor: "bg-brown", provedor: "PP" },
+            { nome: "Spirit of Adventure", cor: "bg-brown", provedor: "PP" },
+            { nome: "Christmas Big Bass Bonanza", cor: "bg-purple", provedor: "PP" },
+            { nome: "John Hunter and the Tomb of the Scarab Queen", cor: "bg-yellow", provedor: "PP" },
+            { nome: "Cash Bonanza", cor: "bg-green", provedor: "PP" },
+            { nome: "Madame Destiny", cor: "bg-purple", provedor: "PP" },
+            { nome: "Drill That Gold", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Chicken Chase", cor: "bg-red", provedor: "PP" },
+            { nome: "Queenie", cor: "bg-pink", provedor: "PP" },
+            { nome: "The Ultimate 5", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Rock Vegas", cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Wild Depths", cor: "bg-blue", provedor: "PP" },
+            { nome: "Magician's Secrets", cor: "bg-pink", provedor: "PP" },
+            { nome: "Crystal Caverns Megaways", cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Smugglers Cove", cor: "bg-red", provedor: "PP" },
+            { nome: "Super X", cor: "bg-dark-green", provedor: "PP" },
         ];
 
+
+        // --- FUNÇÕES DE RENDERIZAÇÃO E CRIAÇÃO DE CARD ---
 
         const cardsContainer = document.getElementById('cards-container');
         const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
@@ -503,8 +527,8 @@
         }
 
         function createGameCard(game) {
-            
-            const cardLink = DEFAULT_GAME_LINK;
+            const hasPlayNowButton = ["Hand of Midas 2", "Mustang Gold Megaways", "Madame Destiny", "Drill That Gold", "Bounty Gold", "John Hunter and the Tomb of the Scarab Queen", "Star Pirates Code", "Mystic Chief", "Super X"].includes(game.nome);
+            const linkColor = getLinkColor(game.cor);
 
             const betRangeHTML = `
                 <div class="bet-range">
@@ -514,23 +538,17 @@
                 </div>
             `;
             
-            const linkColor = getLinkColor(game.cor);
-            
-            // Lista de jogos PP que usam o botão "JOGUE AGORA"
-            const gamesWithPlayNowButton = ["Hand of Midas 2", "Mustang Gold Megaways", "Madame Destiny", "Drill That Gold", "Bounty Gold", "John Hunter and the Tomb of the Scarab Queen", "Star Pirates Code", "Mystic Chief", "Super X"].includes(game.nome);
-
             const buttonOrRangeHTML = hasPlayNowButton ? 
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
                                       betRangeHTML;
 
-            const badgeHTML = game.distribuicao >= 90 ? `<span style="color: ${getPercentageColor(90)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+90%</span>` : '';
-
+            const providerTag = `<span class="provider-tag">${game.provedor}</span>`;
 
             return `
-                <a href="${cardLink}" class="game-card-link" target="_blank">
+                <a href="${DEFAULT_GAME_LINK}" class="game-card-link" target="_blank">
                     <div class="game-card">
                         <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
-                            ${badgeHTML}
+                            ${providerTag}
                             <i class="fas fa-heart favorite-btn"></i>
                             <div class="card-overlay">
                                 Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
@@ -574,14 +592,19 @@
             `;
         }
 
-        function renderGames(data) {
-            cardsContainer.innerHTML = data.map(createGameCard).join('');
+        function renderAllGames() {
+            const updatedData = updateGameData(gamesData);
+            
+            if (updatedData.length > 0) {
+                 cardsContainer.innerHTML = updatedData.map(createGameCard).join('');
+            } else {
+                 cardsContainer.innerHTML = '<p style="text-align: center; width: 100%; padding: 50px 0; font-size: 1.2em; color: #ffcb51;">Nenhum jogo encontrado.</p>';
+            }
         }
 
-        // Loop de atualização: atualiza ao carregar e repete a cada 5 segundos
+        // Loop de atualização
         function initUpdateLoop() {
-            const updatedData = updateGameData(gamesData);
-            renderGames(updatedData);
+            renderAllGames();
             setTimeout(initUpdateLoop, 5000); 
         }
         
