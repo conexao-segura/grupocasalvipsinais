@@ -7,8 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* [COLE O BLOCO DE ESTILOS CSS COMPLETO AQUI (O mesmo do pp-games.html)] */
-        /* Por questão de espaço, utilizei o CSS externo, mas você deve colar o CSS completo dos seus arquivos anteriores */
+        /* [ESTILOS CSS MANTIDOS] */
         :root {
             --bg-dark: #1a1a1a;
             --primary-purple: #490195;
@@ -338,13 +337,18 @@
             transition: opacity 0.2s;
         }
         
-        /* Estilos específicos para o HOT GAMES Panel */
-        #hot-games-title {
-            text-align: center;
-            font-size: 2em;
-            font-weight: 800;
+        .provider-tag {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            font-weight: 900;
+            position: absolute;
+            top: 5px;
+            left: 5px;
             color: var(--text-gold);
-            margin: 20px 0;
+            z-index: 10;
+            border: 1px solid var(--text-gold);
         }
 
     </style>
@@ -398,55 +402,54 @@
     </footer>
 
     <script>
-        // === DADOS DE TODOS OS JOGOS (Combinados) ===
-        // NOTA: Para um site de produção, esses dados viriam de um servidor.
+        // === DADOS DE TODOS OS JOGOS (Combinados para filtro) ===
+        // NOTA: Dados de demonstração. Você deve garantir que seus outros arquivos tenham os dados completos.
         const allGamesData = [
-            // ** DADOS PG GAMES (MANTIDOS) **
-            { nome: "Fortune Rabbit", distribuicao: 65, minima: 57, padrao: 64, maxima: 48, cor: "bg-blue", provedor: "PG" },
+            // ** PG GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
             { nome: "Fortune Tiger", distribuicao: 90, minima: 40, padrao: 50, maxima: 89, cor: "bg-red", provedor: "PG" },
-            { nome: "Fortune Ox", distribuicao: 90, minima: 55, padrao: 65, maxima: 89, cor: "bg-red", provedor: "PG" },
             { nome: "Fortune Mouse", distribuicao: 98, minima: 12, padrao: 100, maxima: 53, cor: "bg-orange", provedor: "PG" },
-            { nome: "Fortune Dragon", distribuicao: 92, minima: 74, padrao: 91, maxima: 64, cor: "bg-green", provedor: "PG" },
-            { nome: "Fortune Snake", distribuicao: 87, minima: 47, padrao: 84, maxima: 49, cor: "bg-dark-green", provedor: "PG" },
             { nome: "Graffiti Rush", distribuicao: 98, minima: 37, padrao: 98, maxima: 18, cor: "bg-pink", provedor: "PG" },
-            { nome: "Mr. Treasure's Fortune", distribuicao: 98, minima: 12, padrao: 91, maxima: 98, cor: "bg-dark-purple", provedor: "PG" },
-            // ... (coloque o restante dos 63 jogos PG aqui) ...
+            { nome: "Wild Ape", distribuicao: 98, minima: 27, padrao: 99, maxima: 51, cor: "bg-green", provedor: "PG" },
 
-            // ** DADOS PP GAMES (MANTIDOS) **
-            { nome: "Treasure Wild", distribuicao: 79, minima: 78, padrao: 25, maxima: 73, cor: "bg-orange", provedor: "PP" },
-            { nome: "Starlight Princess", distribuicao: 61, minima: 58, padrao: 49, maxima: 13, cor: "bg-yellow", provedor: "PP" },
-            { nome: "Buffalo King Untamed Megaways", distribuicao: 63, minima: 60, padrao: 56, maxima: 27, cor: "bg-purple", provedor: "PP" },
-            { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green", provedor: "PP" },
+            // ** PP GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
             { nome: "Mustang Gold Megaways", distribuicao: 98, minima: 98, padrao: 72, maxima: 21, cor: "bg-dark-green", provedor: "PP" },
-            // ... (coloque o restante dos 38 jogos PP aqui) ...
+            { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green", provedor: "PP" },
+            { nome: "Super X", distribuicao: 98, minima: 98, padrao: 11, maxima: 19, cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Bounty Gold", distribuicao: 98, minima: 97, padrao: 86, maxima: 18, cor: "bg-dark-purple", provedor: "PP" },
 
-            // ** DADOS WG GAMES (MANTIDOS) **
-            { nome: "Fortune Mouse (WG)", distribuicao: 83, minima: 27, padrao: 80, maxima: 71, cor: "bg-red", provedor: "WG" },
-            { nome: "Festival of the Saints", distribuicao: 76, minima: 73, padrao: 56, maxima: 32, cor: "bg-dark-green", provedor: "WG" },
+            // ** WG GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
             { nome: "Animal Kingdom", distribuicao: 98, minima: 95, padrao: 66, maxima: 77, cor: "bg-green", provedor: "WG" },
-            // ... (coloque o restante dos 24 jogos WG aqui) ...
+            { nome: "Super Máquina de Frutas", distribuicao: 98, minima: 92, padrao: 95, maxima: 57, cor: "bg-red", provedor: "WG" },
+            { nome: "Caça ao Tesouro em Série", distribuicao: 98, minima: 98, padrao: 47, maxima: 59, cor: "bg-green", provedor: "WG" },
+            { nome: "Dragon's Treasure", distribuicao: 98, minima: 98, padrao: 98, maxima: 35, cor: "bg-blue", provedor: "WG" },
             
-            // ** DADOS TADA GAMING (MANTIDOS) **
-            { nome: "Lucky Doggy (Tada)", distribuicao: 71, minima: 57, padrao: 26, maxima: 68, cor: "bg-orange", provedor: "TADA" },
-            { nome: "Poseidon", distribuicao: 81, minima: 29, padrao: 78, maxima: 41, cor: "bg-purple", provedor: "TADA" },
+            // ** TADA GAMING (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
             { nome: "Safari Mystery", distribuicao: 95, minima: 92, padrao: 76, maxima: 49, cor: "bg-orange", provedor: "TADA" },
             { nome: "3 Coin Treasures", distribuicao: 97, minima: 94, padrao: 88, maxima: 83, cor: "bg-green", provedor: "TADA" },
-            // ... (coloque o restante dos 63 jogos TADA aqui) ...
+            { nome: "Fruity Wheel", distribuicao: 95, minima: 49, padrao: 45, maxima: 94, cor: "bg-orange", provedor: "TADA" },
+            { nome: "Night City", distribuicao: 98, minima: 98, padrao: 65, maxima: 41, cor: "bg-dark-purple", provedor: "TADA" },
         ];
+
 
         // --- FUNÇÕES DE TEMPO E DETERMINÍSTICAS (IDÊNTICAS EM TODOS OS ARQUIVOS) ---
 
-        function getBrazilTimeIndex() {
+        /**
+         * Usa UTC (Tempo Universal) para sincronizar a atualização a cada 5 minutos.
+         */
+        function getGlobalTimeIndex() {
             const date = new Date();
-            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-            const brTime = new Date(utc - (3600000 * 3));
-            const totalMinutes = (brTime.getHours() * 60) + brTime.getMinutes();
-            const index = Math.floor(totalMinutes / 5);
+            // Pega o total de minutos UTC desde a meia-noite
+            const totalMinutesUTC = (date.getUTCHours() * 60) + date.getUTCMinutes();
+            // Calcula o índice que muda a cada 5 minutos (1440 min / 5 min = 288 índices por dia)
+            const index = Math.floor(totalMinutesUTC / 5);
             return index;
         }
 
-        function generateNewPercentage(nomeJogo, minuteIndex) {
-            const seed = nomeJogo.length + minuteIndex;
+        /**
+         * Gera uma porcentagem determinística (simulada) baseada no jogo e no tempo.
+         */
+        function generateNewPercentage(nomeJogo, provedor, type, minuteIndex) {
+            const seed = (nomeJogo.length + provedor.length + type.length) * minuteIndex;
             let hash = 0;
             for (let i = 0; i < nomeJogo.length; i++) {
                 hash = nomeJogo.charCodeAt(i) + ((hash << 5) - hash);
@@ -456,12 +459,13 @@
         }
 
         function updateGameData(originalData) {
-            const timeIndex = getBrazilTimeIndex();
+            const timeIndex = getGlobalTimeIndex();
             
             return originalData.map(game => {
-                const newMinima = generateNewPercentage(game.nome + game.provedor + 'Min', timeIndex);
-                const newPadrao = generateNewPercentage(game.nome + game.provedor + 'Pad', timeIndex);
-                const newMaxima = generateNewPercentage(game.nome + game.provedor + 'Max', timeIndex);
+                const newMinima = generateNewPercentage(game.nome, game.provedor, 'Min', timeIndex);
+                const newPadrao = generateNewPercentage(game.nome, game.provedor, 'Pad', timeIndex);
+                const newMaxima = generateNewPercentage(game.nome, game.provedor, 'Max', timeIndex);
+                // Recalcula a Distribuição
                 const newDistribuicao = Math.floor((newMinima + newPadrao + newMaxima) / 3);
 
                 return {
@@ -497,8 +501,7 @@
         }
 
         function createGameCard(game) {
-            // Lógica para determinar JOGUE AGORA (simplificada, pois o foco é o filtro)
-            const hasPlayNowButton = game.distribuicao > 90; // Exemplo de regra
+            const hasPlayNowButton = game.distribuicao > 90;
             const linkColor = getLinkColor(game.cor);
 
             const betRangeHTML = `
@@ -513,14 +516,14 @@
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
                                       betRangeHTML;
 
-            const badgeHTML = `<span style="color: ${getPercentageColor(game.distribuicao)}; font-size: 1.2em; position: absolute; top: 5px; left: 5px; text-shadow: 0 0 5px black;">+${game.provedor}</span>`;
-
+            // Tag do Provedor no card
+            const providerTag = `<span class="provider-tag">${game.provedor}</span>`;
 
             return `
                 <a href="${DEFAULT_GAME_LINK}" class="game-card-link" target="_blank">
                     <div class="game-card">
                         <div class="card-top" style="background-image: url('https://via.placeholder.com/180x120/333333/FFFFFF?text=${game.nome.replace(/\s/g, '+')}');">
-                            ${badgeHTML}
+                            ${providerTag}
                             <i class="fas fa-heart favorite-btn"></i>
                             <div class="card-overlay">
                                 Distribuição: <span style="color: ${getPercentageColor(game.distribuicao)}; font-weight: 800;">${game.distribuicao}%</span>
@@ -577,12 +580,13 @@
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
-            updateTimeElement.textContent = `Última atualização: ${hours}:${minutes} (BRT)`;
+            updateTimeElement.textContent = `Última atualização (Local): ${hours}:${minutes}`;
         }
 
         // Loop de atualização: atualiza ao carregar e repete a cada 5 segundos
         function initUpdateLoop() {
             renderHotGames();
+            // A taxa de repetição é de 5 segundos, mas o valor só muda a cada 5 minutos
             setTimeout(initUpdateLoop, 5000); 
         }
         
