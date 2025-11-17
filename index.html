@@ -351,6 +351,14 @@
             border: 1px solid var(--text-gold);
         }
 
+        #hot-games-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--text-gold);
+            margin: 20px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -387,7 +395,8 @@
 
         <section id="game-list-section">
             <div id="cards-container" class="cards-grid">
-                </div>
+                <p style="text-align: center; width: 100%; padding: 50px 0;">Carregando dados dos jogos...</p>
+            </div>
         </section>
     </main>
 
@@ -402,36 +411,8 @@
     </footer>
 
     <script>
-        // === DADOS DE TODOS OS JOGOS (Combinados para filtro) ===
-        // NOTA: Dados de demonstração. Você deve garantir que seus outros arquivos tenham os dados completos.
-        const allGamesData = [
-            // ** PG GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
-            { nome: "Fortune Tiger", distribuicao: 90, minima: 40, padrao: 50, maxima: 89, cor: "bg-red", provedor: "PG" },
-            { nome: "Fortune Mouse", distribuicao: 98, minima: 12, padrao: 100, maxima: 53, cor: "bg-orange", provedor: "PG" },
-            { nome: "Graffiti Rush", distribuicao: 98, minima: 37, padrao: 98, maxima: 18, cor: "bg-pink", provedor: "PG" },
-            { nome: "Wild Ape", distribuicao: 98, minima: 27, padrao: 99, maxima: 51, cor: "bg-green", provedor: "PG" },
-
-            // ** PP GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
-            { nome: "Mustang Gold Megaways", distribuicao: 98, minima: 98, padrao: 72, maxima: 21, cor: "bg-dark-green", provedor: "PP" },
-            { nome: "Hand of Midas 2", distribuicao: 95, minima: 92, padrao: 19, maxima: 76, cor: "bg-green", provedor: "PP" },
-            { nome: "Super X", distribuicao: 98, minima: 98, padrao: 11, maxima: 19, cor: "bg-dark-green", provedor: "PP" },
-            { nome: "Bounty Gold", distribuicao: 98, minima: 97, padrao: 86, maxima: 18, cor: "bg-dark-purple", provedor: "PP" },
-
-            // ** WG GAMES (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
-            { nome: "Animal Kingdom", distribuicao: 98, minima: 95, padrao: 66, maxima: 77, cor: "bg-green", provedor: "WG" },
-            { nome: "Super Máquina de Frutas", distribuicao: 98, minima: 92, padrao: 95, maxima: 57, cor: "bg-red", provedor: "WG" },
-            { nome: "Caça ao Tesouro em Série", distribuicao: 98, minima: 98, padrao: 47, maxima: 59, cor: "bg-green", provedor: "WG" },
-            { nome: "Dragon's Treasure", distribuicao: 98, minima: 98, padrao: 98, maxima: 35, cor: "bg-blue", provedor: "WG" },
-            
-            // ** TADA GAMING (Apenas alguns para exemplo. COLOQUE A LISTA COMPLETA AQUI!) **
-            { nome: "Safari Mystery", distribuicao: 95, minima: 92, padrao: 76, maxima: 49, cor: "bg-orange", provedor: "TADA" },
-            { nome: "3 Coin Treasures", distribuicao: 97, minima: 94, padrao: 88, maxima: 83, cor: "bg-green", provedor: "TADA" },
-            { nome: "Fruity Wheel", distribuicao: 95, minima: 49, padrao: 45, maxima: 94, cor: "bg-orange", provedor: "TADA" },
-            { nome: "Night City", distribuicao: 98, minima: 98, padrao: 65, maxima: 41, cor: "bg-dark-purple", provedor: "TADA" },
-        ];
-
-
-        // --- FUNÇÕES DE TEMPO E DETERMINÍSTICAS (IDÊNTICAS EM TODOS OS ARQUIVOS) ---
+        // FUNÇÕES DE TEMPO E DETERMINÍSTICAS (PARA ATUALIZAÇÃO A CADA 5 MINUTOS)
+        // =========================================================================
 
         /**
          * Usa UTC (Tempo Universal) para sincronizar a atualização a cada 5 minutos.
@@ -465,7 +446,6 @@
                 const newMinima = generateNewPercentage(game.nome, game.provedor, 'Min', timeIndex);
                 const newPadrao = generateNewPercentage(game.nome, game.provedor, 'Pad', timeIndex);
                 const newMaxima = generateNewPercentage(game.nome, game.provedor, 'Max', timeIndex);
-                // Recalcula a Distribuição
                 const newDistribuicao = Math.floor((newMinima + newPadrao + newMaxima) / 3);
 
                 return {
@@ -478,6 +458,46 @@
             });
         }
         
+        // === DADOS DE TODOS OS JOGOS (Combinados) ===
+        // Lista consolidada de todos os jogos de todas as provedoras. 
+        // IMPORTANTE: Este bloco deve ser o mais completo possível para que o filtro Hot Games funcione!
+        const allGamesData = [
+            // ** PG GAMES **
+            { nome: "Fortune Tiger", distribuicao: 90, cor: "bg-red", provedor: "PG" },
+            { nome: "Fortune Mouse", distribuicao: 98, cor: "bg-orange", provedor: "PG" },
+            { nome: "Graffiti Rush", distribuicao: 98, cor: "bg-pink", provedor: "PG" },
+            { nome: "Wild Ape", distribuicao: 98, cor: "bg-green", provedor: "PG" },
+            { nome: "Mahjong Ways 2", distribuicao: 98, cor: "bg-green", provedor: "PG" },
+            { nome: "Captain's Bounty", distribuicao: 98, cor: "bg-dark-green", provedor: "PG" },
+            { nome: "Fortune Dragon", distribuicao: 92, cor: "bg-green", provedor: "PG" },
+            { nome: "Prosperity Fortune Tree", distribuicao: 95, cor: "bg-dark-green", provedor: "PG" },
+            
+            // ** PP GAMES **
+            { nome: "Mustang Gold Megaways", distribuicao: 98, cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Hand of Midas 2", distribuicao: 95, cor: "bg-green", provedor: "PP" },
+            { nome: "Super X", distribuicao: 98, cor: "bg-dark-green", provedor: "PP" },
+            { nome: "Bounty Gold", distribuicao: 98, cor: "bg-dark-purple", provedor: "PP" },
+            { nome: "Magician's Secrets", distribuicao: 98, cor: "bg-pink", provedor: "PP" },
+            { nome: "Smugglers Cove", distribuicao: 71, cor: "bg-red", provedor: "PP" },
+            { nome: "Gates of Olympus", distribuicao: 71, cor: "bg-purple", provedor: "PP" },
+            
+            // ** WG GAMES **
+            { nome: "Animal Kingdom (WG)", distribuicao: 98, cor: "bg-green", provedor: "WG" },
+            { nome: "Super Máquina de Frutas (WG)", distribuicao: 98, cor: "bg-red", provedor: "WG" },
+            { nome: "Caça ao Tesouro em Série (WG)", distribuicao: 98, cor: "bg-green", provedor: "WG" },
+            { nome: "Dragon's Treasure (WG)", distribuicao: 98, cor: "bg-blue", provedor: "WG" },
+            { nome: "Festa dos Doces (WG)", distribuicao: 94, cor: "bg-dark-green", provedor: "WG" },
+            
+            // ** TADA GAMING **
+            { nome: "3 Coin Treasures (Tada)", distribuicao: 97, cor: "bg-green", provedor: "TADA" },
+            { nome: "Fruity Wheel (Tada)", distribuicao: 95, cor: "bg-orange", provedor: "TADA" },
+            { nome: "Night City (Tada)", distribuicao: 98, cor: "bg-dark-purple", provedor: "TADA" },
+            { nome: "Bingo Carnaval (Tada)", distribuicao: 92, cor: "bg-red", provedor: "TADA" },
+            { nome: "Bonus Bingo (Tada)", distribuicao: 98, cor: "bg-blue", provedor: "TADA" },
+            { nome: "Safari Mystery (Tada)", distribuicao: 95, cor: "bg-orange", provedor: "TADA" },
+        ];
+
+
         // --- FUNÇÕES DE RENDERIZAÇÃO E FILTRO ---
 
         const cardsContainer = document.getElementById('cards-container');
@@ -516,7 +536,6 @@
                                       `<span class="btn-jogue-agora-span" style="background-color: ${linkColor}; border: 1px solid rgba(255, 255, 255, 0.2);">JOGUE AGORA</span>` : 
                                       betRangeHTML;
 
-            // Tag do Provedor no card
             const providerTag = `<span class="provider-tag">${game.provedor}</span>`;
 
             return `
@@ -578,15 +597,14 @@
             
             // 3. ATUALIZA HORA
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            updateTimeElement.textContent = `Última atualização (Local): ${hours}:${minutes}`;
+            const hours = now.getUTCHours().toString().padStart(2, '0');
+            const minutes = now.getUTCMinutes().toString().padStart(2, '0');
+            updateTimeElement.textContent = `Última atualização (UTC): ${hours}:${minutes}`;
         }
 
         // Loop de atualização: atualiza ao carregar e repete a cada 5 segundos
         function initUpdateLoop() {
             renderHotGames();
-            // A taxa de repetição é de 5 segundos, mas o valor só muda a cada 5 minutos
             setTimeout(initUpdateLoop, 5000); 
         }
         
