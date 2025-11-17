@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Estilos CSS COMPLETO (IDÊNTICO AOS OUTROS ARQUIVOS) */
+        /* [ESTILOS CSS MANTIDOS] */
         :root {
             --bg-dark: #1a1a1a;
             --primary-purple: #490195;
@@ -39,7 +39,6 @@
             padding: 0 15px;
         }
 
-        /* --- Navbar --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -86,7 +85,6 @@
             text-transform: uppercase;
         }
 
-        /* --- Banner Principal (Customizado para WG) --- */
         .main-banner {
             background-image: url('https://via.placeholder.com/1200x500/331a6d/800080?text=Fundo+Roxo+Cidade');
             background-size: cover;
@@ -133,7 +131,7 @@
         .wg-games-text {
             font-size: 4em;
             font-weight: 800;
-            color: var(--green-text); /* Cor customizada para WG (Verde) */
+            color: var(--green-text);
             position: relative;
             z-index: 5;
         }
@@ -156,7 +154,6 @@
             font-weight: 700;
         }
 
-        /* --- Tabs de Filtro (Botões) --- */
         .filter-tabs {
             display: flex;
             justify-content: center;
@@ -182,7 +179,6 @@
             box-shadow: 0 0 10px black;
         }
 
-        /* --- Barra de Pesquisa --- */
         .search-section {
             display: flex;
             justify-content: center;
@@ -217,7 +213,6 @@
             font-size: 1.2em;
         }
         
-        /* Estilos dos Cartões */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
@@ -379,7 +374,6 @@
     </header>
 
     <main class="container">
-        
         <section class="filter-tabs">
             <button class="tab-button active"><i class="fas fa-fire" style="color: orange;"></i> HOT</button>
             <button class="tab-button"><i class="fas fa-star" style="color: yellow;"></i> NEW</button>
@@ -411,13 +405,46 @@
     </footer>
 
     <script>
-        // Link de destino para todos os cartões
-        const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
+        // FUNÇÕES DE TEMPO E DETERMINÍSTICAS (PARA ATUALIZAÇÃO A CADA 5 MINUTOS)
+        function getBrazilTimeIndex() {
+            const date = new Date();
+            const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+            const brTime = new Date(utc - (3600000 * 3));
+            const totalMinutes = (brTime.getHours() * 60) + brTime.getMinutes();
+            const index = Math.floor(totalMinutes / 5);
+            return index;
+        }
 
+        function generateNewPercentage(nomeJogo, minuteIndex) {
+            const seed = nomeJogo.length + minuteIndex;
+            let hash = 0;
+            for (let i = 0; i < nomeJogo.length; i++) {
+                hash = nomeJogo.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            let newPercent = Math.abs(hash * seed) % 100;
+            return Math.max(10, newPercent);
+        }
+
+        function updateGameData(originalData) {
+            const timeIndex = getBrazilTimeIndex();
+            return originalData.map(game => {
+                const newMinima = generateNewPercentage(game.nome + 'Min', timeIndex);
+                const newPadrao = generateNewPercentage(game.nome + 'Pad', timeIndex);
+                const newMaxima = generateNewPercentage(game.nome + 'Max', timeIndex);
+                const newDistribuicao = Math.floor((newMinima + newPadrao + newMaxima) / 3);
+                return {
+                    ...game,
+                    minima: newMinima,
+                    padrao: newPadrao,
+                    maxima: newMaxima,
+                    distribuicao: newDistribuicao,
+                };
+            });
+        }
+        
+        // DADOS ORIGINAIS DOS JOGOS (Usados como base para a atualização)
         const gamesData = [
-            // DADOS DOS JOGOS WG GAMES (NA ORDEM DAS SUAS IMAGENS)
-
-            // Imagem 1: Fortune Mouse até Mahjong Ways 2
+            // DADOS DOS JOGOS WG GAMES (24 JOGOS)
             { nome: "Fortune Mouse", distribuicao: 83, minima: 27, padrao: 80, maxima: 71, cor: "bg-red" },
             { nome: "Fortune Tiger", distribuicao: 79, minima: 65, padrao: 49, maxima: 78, cor: "bg-orange" },
             { nome: "Fortune Ox", distribuicao: 71, minima: 68, padrao: 57, maxima: 56, cor: "bg-purple" },
@@ -426,8 +453,6 @@
             { nome: "Fortune Gems", distribuicao: 69, minima: 32, padrao: 60, maxima: 68, cor: "bg-yellow" },
             { nome: "Queen of Bounty", distribuicao: 56, minima: 44, padrao: 26, maxima: 55, cor: "bg-red" },
             { nome: "Mahjong Ways 2", distribuicao: 82, minima: 79, padrao: 59, maxima: 13, cor: "bg-purple" },
-
-            // Imagem 2: Festival of the Saints até Super Ace
             { nome: "Festival of the Saints", distribuicao: 76, minima: 73, padrao: 56, maxima: 32, cor: "bg-dark-green" },
             { nome: "Animal Kingdom", distribuicao: 98, minima: 95, padrao: 66, maxima: 77, cor: "bg-green" },
             { nome: "Fishing Master", distribuicao: 98, minima: 78, padrao: 98, maxima: 18, cor: "bg-blue" },
@@ -436,8 +461,6 @@
             { nome: "Super Fruits Slot 2", distribuicao: 62, minima: 50, padrao: 61, maxima: 26, cor: "bg-yellow" },
             { nome: "Wild Bounty Showdown", distribuicao: 67, minima: 66, padrao: 47, maxima: 63, cor: "bg-dark-purple" },
             { nome: "Super Ace", distribuicao: 32, minima: 19, padrao: 10, maxima: 31, cor: "bg-pink" },
-            
-            // Imagem 3: Festa dos Doces até Treasure Marmosets
             { nome: "Festa dos Doces", distribuicao: 94, minima: 25, padrao: 93, maxima: 78, cor: "bg-dark-green" },
             { nome: "Super Máquina de Frutas", distribuicao: 98, minima: 92, padrao: 95, maxima: 57, cor: "bg-red" },
             { nome: "Margem da Água", distribuicao: 82, minima: 81, padrao: 17, maxima: 36, cor: "bg-dark-purple" },
@@ -449,8 +472,8 @@
         ];
 
 
-        // FUNÇÕES JS PARA RENDERIZAÇÃO (Mantidas as mesmas)
         const cardsContainer = document.getElementById('cards-container');
+        const DEFAULT_GAME_LINK = "https://www.aquelepg.com/?id=246003088";
 
         function getPercentageColor(percentage) {
             if (percentage >= 70) return 'var(--green-text)';
@@ -482,7 +505,7 @@
             
             const linkColor = getLinkColor(game.cor);
             
-            // Lista de jogos WG que usam o botão "JOGUE AGORA" no lugar do range (Baseado nas suas imagens)
+            // Lista de jogos WG que usam o botão "JOGUE AGORA"
             const gamesWithPlayNowButton = [
                 "Fortune Snake", "Festival of the Saints", "Animal Kingdom", "Fishing Master", 
                 "Festa dos Doces", "Super Máquina de Frutas", "Caça ao Tesouro em Série", "Dragon's Treasure", "Margem da Água"
@@ -549,10 +572,14 @@
             cardsContainer.innerHTML = data.map(createGameCard).join('');
         }
 
-        setTimeout(() => {
-            renderGames(gamesData);
-        }, 500);
+        // Loop de atualização: atualiza ao carregar e repete a cada 5 segundos
+        function initUpdateLoop() {
+            const updatedData = updateGameData(gamesData);
+            renderGames(updatedData);
+            setTimeout(initUpdateLoop, 5000); 
+        }
+        
+        initUpdateLoop();
     </script>
-
 </body>
 </html>
